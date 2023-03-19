@@ -1,0 +1,19 @@
+3 => 
+
+
+admin -> 
+1)faculty add
+2) student add 
+
+
+faculty -> 
+2) mcq add
+3) they can conduct exam
+4) manage time of exam
+5) report of student
+
+
+student ->
+1) exam only
+2) result view
+3) notification

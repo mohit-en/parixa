@@ -1,0 +1,191 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "parixa",
+    "dateExported": "2023-03-19T17:35:41.032Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "30b76e76-2895-4942-8ade-60aca0a5ed8d",
+            "name": "Auth",
+            "containerId": "ebfb162a-a8d8-4a42-8167-9870f8c43685",
+            "created": "2023-03-19T14:39:05.555Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "ebfb162a-a8d8-4a42-8167-9870f8c43685",
+            "name": "Admin",
+            "containerId": "",
+            "created": "2023-03-19T14:20:14.563Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "5de87bc1-cc35-430e-8694-5bacaf693d2a",
+            "name": "Faculty",
+            "containerId": "",
+            "created": "2023-03-19T14:20:21.279Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "66b5489b-f671-401a-93e3-8a1af0102b67",
+            "name": "Student",
+            "containerId": "",
+            "created": "2023-03-19T14:20:26.496Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "39542298-c992-4813-ad4b-918365281a22",
+            "name": "Auth",
+            "containerId": "66b5489b-f671-401a-93e3-8a1af0102b67",
+            "created": "2023-03-19T14:20:40.201Z",
+            "sortNum": 50000
+        },
+        {
+            "_id": "5175f498-cab2-4d6b-ab40-1cbe2289771e",
+            "name": "Dashboard",
+            "containerId": "ebfb162a-a8d8-4a42-8167-9870f8c43685",
+            "created": "2023-03-19T16:52:55.447Z",
+            "sortNum": 60000
+        },
+        {
+            "_id": "db452496-e0e6-4632-a12f-59162c6f62de",
+            "name": "Dashboard",
+            "containerId": "ebfb162a-a8d8-4a42-8167-9870f8c43685",
+            "created": "2023-03-19T16:53:16.288Z",
+            "sortNum": 70000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "b0ed8969-d8d2-4e2d-8db2-252a6f3de3fa",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "39542298-c992-4813-ad4b-918365281a22",
+            "name": "Login Student",
+            "url": "http://127.0.0.1:8000/api/auth/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-03-19T14:20:48.955Z",
+            "modified": "2023-03-19T14:23:01.241Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "03557620-c144-4a9d-ba13-53ad0d108f5f",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "30b76e76-2895-4942-8ade-60aca0a5ed8d",
+            "name": "Login Admin",
+            "url": "http://127.0.0.1:8000/api/auth/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-03-19T14:39:05.555Z",
+            "modified": "2023-03-19T15:44:25.137Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\":\"admin@admin.com\",\n  \"password\":\"123456\",\n  \"user_role\":1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "53903d4c-505d-4fae-aa42-8711bf1d9c74",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "30b76e76-2895-4942-8ade-60aca0a5ed8d",
+            "name": "Logout Admin",
+            "url": "http://127.0.0.1:8000/api/auth/logout",
+            "method": "POST",
+            "sortNum": 12500,
+            "created": "2023-03-19T17:27:57.323Z",
+            "modified": "2023-03-19T17:29:33.556Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "61eeb797-bf1e-4341-8aa6-f3e180040424",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "30b76e76-2895-4942-8ade-60aca0a5ed8d",
+            "name": "Check Is User Login",
+            "url": "http://127.0.0.1:8000/api/auth/isUserLogin",
+            "method": "POST",
+            "sortNum": 13750,
+            "created": "2023-03-19T17:32:06.195Z",
+            "modified": "2023-03-19T17:33:44.399Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "0ef49fee-74f6-45e5-a0d8-1497fd33d1e1",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "30b76e76-2895-4942-8ade-60aca0a5ed8d",
+            "name": "Signup Admin",
+            "url": "http://127.0.0.1:8000/api/auth/signup",
+            "method": "POST",
+            "sortNum": 15000,
+            "created": "2023-03-19T14:41:24.397Z",
+            "modified": "2023-03-19T15:05:12.041Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\":\"admin@admin.com\",\n  \"password\":\"123456\",\n  \"user_role\":1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "8e20bb38-dca8-4f7c-878f-de7cd8f82707",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "30b76e76-2895-4942-8ade-60aca0a5ed8d",
+            "name": "Signup Student",
+            "url": "http://127.0.0.1:8000/api/auth/signup",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-03-19T14:39:05.556Z",
+            "modified": "2023-03-19T14:39:05.555Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\":\"abc@gmail.com\",\n  \"password\":123456\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a594ac12-69e0-47c2-9636-f7f902e6e898",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "30b76e76-2895-4942-8ade-60aca0a5ed8d",
+            "name": "Signup Faculty",
+            "url": "http://127.0.0.1:8000/api/auth/signup",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-03-19T14:40:22.069Z",
+            "modified": "2023-03-19T14:40:22.069Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\":\"abc@gmail.com\",\n  \"password\":123456\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "55a0935d-ba8c-4b29-b5bf-febe8e24cd80",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "db452496-e0e6-4632-a12f-59162c6f62de",
+            "name": "Dashboard Admin",
+            "url": "http://127.0.0.1:8000/api/admin/dashboard",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-03-19T16:53:25.165Z",
+            "modified": "2023-03-19T16:53:47.323Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
