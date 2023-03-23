@@ -33,8 +33,20 @@ Route::middleware('api-session')->group(
 
         Route::prefix('admin')->middleware(['admin-auth'])->group(function () {
 
-            Route::prefix('dashboard')->group(function () {
-                Route::post('/', [Admin::class, "dashboard"]);
+            Route::post('/', [Admin::class, "dashboard"]);
+
+            Route::prefix('student')->group(function () {
+                Route::post('/fetch/{id?}', [Admin::class, "fetchStudentData"]);
+                Route::post('/add', [Admin::class, "addStudentData"]);
+                Route::patch("/update/{id}", [Admin::class, "updateStudentData"]);
+                Route::delete("/delete/{id}", [Admin::class, "deleteStudentData"]);
+            });
+
+            Route::prefix('faculty')->group(function () {
+                Route::post('/fetch/{id?}', [Admin::class, "fetchFacultyData"]);
+                Route::post('/add', [Admin::class, "addFacultyData"]);
+                Route::patch("/update/{id}", [Admin::class, "updateFacultyData"]);
+                Route::delete("/delete/{id}", [Admin::class, "deleteFacultyData"]);
             });
         });
     }

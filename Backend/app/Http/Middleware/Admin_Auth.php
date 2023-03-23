@@ -22,7 +22,11 @@ class Admin_Auth
         if ($isUserSessionCreated && $isUserRoleIsAdmin) {
             return $next($request);
         } else {
-            return response()->json(['body' => [], 'msg' => "Invalid Authentication Request For Admin Route", 'status' => 'fail'], 400);
+            return response()->json([
+                'body' => [],
+                'msg' => "Invalid Authentication Request For Admin Route",
+                'status' => 'fail'
+            ], 400);
         }
     }
 }

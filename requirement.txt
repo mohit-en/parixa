@@ -4,6 +4,8 @@
 admin -> 
 1)faculty add
 2) student add 
+3) courses add
+4) subjects add
 
 
 faculty -> 

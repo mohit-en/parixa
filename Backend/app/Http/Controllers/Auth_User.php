@@ -26,8 +26,9 @@ class Auth_User extends Controller
             $data = DB::table("users")->select()->where([
                 ['user_email', "=", $request->input('email')],
                 ['user_password', "=", md5($request->input('password'))],
-                ['user_role', "=", $request->input('user_role')]
             ])->first();
+
+            printf($data);
 
             // check that user is valid or not if valid then store it value in session
             if ($data) {
