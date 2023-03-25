@@ -28,18 +28,46 @@ class Auth_User extends Controller
                 ['user_password', "=", md5($request->input('password'))],
             ])->first();
 
-            printf($data);
+            // printf($data);
 
             // check that user is valid or not if valid then store it value in session
             if ($data) {
-                $request->session()->put([
-                    'is_user_login' => "true",
-                    'user_id' => $data->id,
-                    'user_email' => $data->user_email,
-                    'user_role' => $data->user_role
-                ]);
+
+                if ($data->user_role == "student") {
+
+                    $student_data = DB::table("student")
+                        ->select("student_id")
+                        ->where("login_user_id", "=", $data->id)
+                        ->first();
+                    $request->session()->put([
+                        'is_user_login' => "true",
+                        'login_user_id' => $data->id,
+                        'user_email' => $data->user_email,
+                        'user_role' => $data->user_role,
+                        'user_id' => $student_data->student_id
+                    ]);
+                } else if ($data->user_role == "faculty") {
+                    $faculty_data = DB::table("faculty")
+                        ->select("faculty_id")
+                        ->where("login_user_id", "=", $data->id)
+                        ->first();
+                    $request->session()->put([
+                        'is_user_login' => "true",
+                        'login_user_id' => $data->id,
+                        'user_email' => $data->user_email,
+                        'user_role' => $data->user_role,
+                        'user_id' => $faculty_data->faculty_id
+                    ]);
+                } else {
+                    $request->session()->put([
+                        'is_user_login' => "true",
+                        'login_user_id' => $data->id,
+                        'user_email' => $data->user_email,
+                        'user_role' => $data->user_role, //admin
+                    ]);
+                }
                 return response()->json([
-                    'body' => $request->session()->all(),
+                    'body' => [], //$request->session()->all()
                     'msg' => "Login Successfully",
                     'status' => 'success'
                 ], 200);
@@ -57,40 +85,6 @@ class Auth_User extends Controller
             ], 400);
         }
     }
-
-    public function signup(Request $request)
-    {
-        // validate requested data
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => "required|string|min:6"
-        ]);
-        // response if validate requested data violates any validation rules
-        if ($validator->fails()) {
-            return response()->json(['body' => [], 'message' => $validator->errors(), 'status' => 'fail'], 422);
-        }
-
-        // insert data in users table
-        try {
-            DB::table("users")->insert([
-                "user_email" => $request->input("email"),
-                "user_password" => md5($request->input("password")),
-                "user_role" => 1
-            ]);
-            return response()->json([
-                'body' => [],
-                'msg' => "Admin Added Successfully",
-                'status' => 'success'
-            ], 200);
-        } catch (Exception $e) {
-            return response()->json([
-                'body' => [],
-                'msg' => $e->getMessage(),
-                'status' => 'fail'
-            ], 400);
-        }
-    }
-
 
     public function logout(Request $request)
     {

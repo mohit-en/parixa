@@ -19,6 +19,9 @@ class Admin extends Controller
             'status' => 'success'
         ], 200);
     }
+    /**
+     * Student related api's managed by admin
+     */
     // this function is for Fetch student data
     public function fetchStudentData(Request $request, $id = 0)
     {
@@ -45,7 +48,7 @@ class Admin extends Controller
                     'body' => [],
                     'msg' => "Not found Student",
                     'status' => 'Not found'
-                ], 404);
+                ], 400);
             }
             // if we get specific student record then send response
             return response()->json([
@@ -58,7 +61,7 @@ class Admin extends Controller
                 'body' => [],
                 'msg' => $ex->getMessage(),
                 'status' => 'fail'
-            ], 200);
+            ], 400);
         }
     }
     // this function is for add student data
@@ -79,11 +82,11 @@ class Admin extends Controller
             return response()->json([
                 'body' => [],
                 'msg' => $data_validation->errors(),
-                'status' => 'success'
-            ], 200);
+                'status' => 'fail'
+            ], 400);
         }
         try {
-
+            DB::beginTransaction();
             $userId = DB::table('users')->insertGetId([
                 'user_email' => $request->input("email"),
                 'user_password' => md5($request->input("password")),
@@ -100,7 +103,7 @@ class Admin extends Controller
                 "course_id" => $request->input("course_id"),
                 "login_user_id" => $userId
             ]);
-
+            DB::commit();
             // send response
             return response()->json([
                 'body' => [],
@@ -108,11 +111,12 @@ class Admin extends Controller
                 'status' => 'success'
             ], 200);
         } catch (Exception $ex) {
+            DB::rollBack();
             return response()->json([
                 'body' => [],
                 'msg' => $ex->getMessage(),
                 'status' => 'fail'
-            ], 200);
+            ], 400);
         }
     }
 
@@ -126,21 +130,26 @@ class Admin extends Controller
             "student_address" => "required|max:200",
             "student_img" => "required|max:200",
             "course_id" => "required|numeric",
-            "login_user_id" => "required"
         ]);
 
         if ($data_validation->fails()) {
             return response()->json([
                 'body' => [],
                 'msg' => $data_validation->errors(),
-                'status' => 'success'
-            ], 200);
+                'status' => 'fail'
+            ], 400);
         }
         // if data is valid then update
         try {
             $data = DB::table("student")
                 ->where("student_id", "=", $id)
-                ->update($request->except("student_id"));
+                ->update($request->all([
+                    "student_name",
+                    "student_mobile",
+                    "student_address",
+                    "student_img",
+                    "course_id"
+                ]));
             if ($data) {
                 return response()->json([
                     'body' => [],
@@ -158,7 +167,7 @@ class Admin extends Controller
                 'body' => [],
                 'msg' => $ex->getMessage(),
                 'status' => 'fail'
-            ], 200);
+            ], 400);
         }
     }
 
@@ -185,12 +194,14 @@ class Admin extends Controller
             return response()->json([
                 'body' => [],
                 'msg' => $ex->getMessage(),
-                'status' => 'fail to delete'
-            ], 200);
+                'status' => 'fail'
+            ], 400);
         }
     }
 
-    /** */
+    /**
+     * Faculty related api's managed by admin
+     */
     // this function is for Fetch faculty data
     public function fetchFacultyData(Request $request, $id = 0)
     {
@@ -238,7 +249,7 @@ class Admin extends Controller
                 'body' => [],
                 'msg' => $ex->getMessage(),
                 'status' => 'fail'
-            ], 200);
+            ], 400);
         }
     }
     // this function is for add faculty data
@@ -263,7 +274,7 @@ class Admin extends Controller
             ], 200);
         }
         try {
-
+            DB::beginTransaction();
             $userId = DB::table('users')->insertGetId([
                 "user_email" => $request->input("email"),
                 "user_password" => md5($request->input("password")),
@@ -279,6 +290,7 @@ class Admin extends Controller
                 "course_id" => $request->input("course_id"),
                 "login_user_id" => $userId
             ]);
+            DB::commit();
             // send response
             return response()->json([
                 'body' => [],
@@ -286,11 +298,12 @@ class Admin extends Controller
                 'status' => 'success'
             ], 200);
         } catch (Exception $ex) {
+            DB::rollBack();
             return response()->json([
                 'body' => [],
                 'msg' => $ex->getMessage(),
                 'status' => 'fail'
-            ], 200);
+            ], 400);
         }
     }
 
@@ -304,15 +317,14 @@ class Admin extends Controller
             "faculty_address" => "required|max:200",
             "faculty_img" => "required|max:200",
             "course_id" => "required|numeric",
-            "login_user_id" => "required"
         ]);
 
         if ($data_validation->fails()) {
             return response()->json([
                 'body' => [],
                 'msg' => $data_validation->errors(),
-                'status' => 'success'
-            ], 200);
+                'status' => 'fail'
+            ], 400);
         }
         // if data is valid then update
         try {
@@ -336,7 +348,7 @@ class Admin extends Controller
                 'body' => [],
                 'msg' => $ex->getMessage(),
                 'status' => 'fail'
-            ], 200);
+            ], 400);
         }
     }
 
@@ -363,8 +375,8 @@ class Admin extends Controller
             return response()->json([
                 'body' => [],
                 'msg' => $ex->getMessage(),
-                'status' => 'fail to delete'
-            ], 200);
+                'status' => 'fail'
+            ], 400);
         }
     }
 }
