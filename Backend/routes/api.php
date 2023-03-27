@@ -48,6 +48,20 @@ Route::middleware('api-session')->group(
                 Route::patch("/update/{id}", [Admin::class, "updateFacultyData"]);
                 Route::delete("/delete/{id}", [Admin::class, "deleteFacultyData"]);
             });
+
+            Route::prefix('course')->group(function () {
+                Route::post('/fetch/{id?}', [Admin::class, "fetchCourseData"]);
+                Route::post('/add', [Admin::class, "addCourseData"]);
+                Route::patch("/update/{id}", [Admin::class, "updateCourseData"]);
+                Route::delete("/delete/{id}", [Admin::class, "deleteCourseData"]);
+            });
+
+            Route::prefix('subject')->group(function () {
+                Route::post('/fetch/{id?}', [Admin::class, "fetchSubjectData"]);
+                Route::post('/add', [Admin::class, "addSubjectData"]);
+                Route::patch("/update/{id}", [Admin::class, "updateSubjectData"]);
+                Route::delete("/delete/{id}", [Admin::class, "deleteSubjectData"]);
+            });
         });
     }
 );

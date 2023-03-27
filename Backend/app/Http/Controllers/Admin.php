@@ -379,4 +379,326 @@ class Admin extends Controller
             ], 400);
         }
     }
+
+    /**
+     * courses related api's managed by admin
+     */
+    // this function is for fetch course data
+    public function fetchCourseData(Request $request, $id = 0)
+    {
+        // if admin user want all course's data
+        if ($id == 0) {
+            // fetch all course data from course table in database
+            $all_course_data = DB::table("course")->select()->get();
+
+            // check that if we have not any record then
+            if (!$all_course_data) {
+                return response()->json([
+                    'body' => [],
+                    'msg' => "No courses records have",
+                    'status' => 'fail'
+                ], 400);
+            }
+            // if we have record send course's record in body key
+            return response()->json([
+                'body' => $all_course_data,
+                'msg' => "All course records",
+                'status' => 'success'
+            ], 200);
+        }
+
+        try {
+            // fetch specific course data based on id
+            $course = DB::table("course")->select()->where("course_id", "=", $id)->first();
+
+            // if we have no record of that specific course then ...
+            if (!$course) {
+                return response()->json([
+                    'body' => [],
+                    'msg' => "Not found course",
+                    'status' => 'Not found'
+                ], 404);
+            }
+            // if we get specific course record then send response
+            return response()->json([
+                'body' => $course,
+                'msg' => "Specific course data",
+                'status' => 'success'
+            ], 200);
+        } catch (Exception $ex) {
+            return response()->json([
+                'body' => [],
+                'msg' => $ex->getMessage(),
+                'status' => 'fail'
+            ], 400);
+        }
+    }
+    // this function is for add course data
+    public function addCourseData(Request $request)
+    {
+        // Validation on data
+        $data_validation = validator::make($request->all(), [
+            "course_name" => ["required", "regex:/^[a-zA-Z ]+$/", "min:2", "max:50"],
+        ]);
+
+        if ($data_validation->fails()) {
+            return response()->json([
+                'body' => [],
+                'msg' => $data_validation->errors(),
+                'status' => 'fail'
+            ], 400);
+        }
+        try {
+            DB::beginTransaction();
+            // insert course record in course table
+            DB::table('course')->insert([
+                "course_name" => $request->input("course_name")
+            ]);
+            DB::commit();
+            // send response
+            return response()->json([
+                'body' => [],
+                'msg' => "Data inserted Succesfully",
+                'status' => 'success'
+            ], 200);
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return response()->json([
+                'body' => [],
+                'msg' => $ex->getMessage(),
+                'status' => 'fail'
+            ], 400);
+        }
+    }
+
+    // this function is for update course data
+    public function updateCourseData(Request $request, $id)
+    {
+        // Validation on data
+        $data_validation = validator::make($request->all(), [
+            "course_name" => ["required", "regex:/^[a-zA-Z ()]+$/", "min:2", "max:50"],
+        ]);
+
+        if ($data_validation->fails()) {
+            return response()->json([
+                'body' => [],
+                'msg' => $data_validation->errors(),
+                'status' => 'fail'
+            ], 400);
+        }
+        // if data is valid then update
+        try {
+            $data = DB::table("course")
+                ->where("course_id", "=", $id)
+                ->update($request->except("course_id"));
+            if ($data) {
+                return response()->json([
+                    'body' => [],
+                    'msg' => "Successfully Updated",
+                    'status' => 'Updated'
+                ], 200);
+            }
+            return response()->json([
+                'body' => [],
+                'msg' => "Not Updated",
+                'status' => 'Not Updated'
+            ], 400);
+        } catch (Exception $ex) {
+            return response()->json([
+                'body' => [],
+                'msg' => $ex->getMessage(),
+                'status' => 'fail'
+            ], 400);
+        }
+    }
+
+    // this function is for delete course data
+    public function deleteCourseData(Request $request, $id)
+    {
+        try {
+            if (is_numeric($id) && $id > 0) {
+                $data = DB::table("course")->where("course_id", "=", $id)->delete();
+                if ($data) {
+                    return response()->json([
+                        'body' => [],
+                        'msg' => $data,
+                        'status' => 'Success delete'
+                    ], 200);
+                }
+                return response()->json([
+                    'body' => [],
+                    'msg' => "Requested course data is not exist",
+                    'status' => 'does\'t exist'
+                ], 200);
+            }
+        } catch (Exception $ex) {
+            return response()->json([
+                'body' => [],
+                'msg' => $ex->getMessage(),
+                'status' => 'fail'
+            ], 400);
+        }
+    }
+
+    /**
+     * subjects related api's managed by admin
+     */
+    // this function is for fetch subject data
+    public function fetchSubjectData(Request $request, $id = 0)
+    {
+        // if admin user want all subject's data
+        if ($id == 0) {
+            // fetch all subject data from subject table in database
+            $all_subject_data = DB::table("subject")->select()->get();
+
+            // check that if we have not any record then
+            if (!$all_subject_data) {
+                return response()->json([
+                    'body' => [],
+                    'msg' => "No subjects records have",
+                    'status' => 'fail'
+                ], 400);
+            }
+            // if we have record send subject's record in body key
+            return response()->json([
+                'body' => $all_subject_data,
+                'msg' => "All subject records",
+                'status' => 'success'
+            ], 200);
+        }
+
+        try {
+            // fetch specific subject data based on id
+            $subject = DB::table("subject")->select()->where("subject_id", "=", $id)->first();
+
+            // if we have no record of that specific subject then ...
+            if (!$subject) {
+                return response()->json([
+                    'body' => [],
+                    'msg' => "Not found subject",
+                    'status' => 'Not found'
+                ], 404);
+            }
+            // if we get specific subject record then send response
+            return response()->json([
+                'body' => $subject,
+                'msg' => "Specific subject data",
+                'status' => 'success'
+            ], 200);
+        } catch (Exception $ex) {
+            return response()->json([
+                'body' => [],
+                'msg' => $ex->getMessage(),
+                'status' => 'fail'
+            ], 400);
+        }
+    }
+    // this function is for add subject data
+    public function addSubjectData(Request $request)
+    {
+        // Validation on data
+        $data_validation = validator::make($request->all(), [
+            "subject_name" => ["required", "min:2", "max:50"],
+            "course_id" => ["required"],
+        ]);
+
+        if ($data_validation->fails()) {
+            return response()->json([
+                'body' => [],
+                'msg' => $data_validation->errors(),
+                'status' => 'fail'
+            ], 400);
+        }
+        try {
+            DB::beginTransaction();
+            // insert subject record in subject table
+            DB::table('subject')->insert([
+                "subject_name" => $request->input("subject_name"),
+                "course_id" => $request->input("course_id")
+            ]);
+            DB::commit();
+            // send response
+            return response()->json([
+                'body' => [],
+                'msg' => "Data inserted Succesfully",
+                'status' => 'success'
+            ], 200);
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return response()->json([
+                'body' => [],
+                'msg' => $ex->getMessage(),
+                'status' => 'fail'
+            ], 400);
+        }
+    }
+
+    // this function is for update subject data
+    public function updateSubjectData(Request $request, $id)
+    {
+        // Validation on data
+        $data_validation = validator::make($request->all(), [
+            "subject_name" => ["required", "min:2", "max:50"],
+        ]);
+
+        if ($data_validation->fails()) {
+            return response()->json([
+                'body' => [],
+                'msg' => $data_validation->errors(),
+                'status' => 'fail'
+            ], 400);
+        }
+        // if data is valid then update
+        try {
+            $data = DB::table("subject")
+                ->where("subject_id", "=", $id)
+                ->update($request->except(["subject_id", "course_id", "created_at", "updated_at"]));
+            if ($data) {
+                return response()->json([
+                    'body' => [],
+                    'msg' => "Successfully Updated",
+                    'status' => 'Updated'
+                ], 200);
+            }
+            return response()->json([
+                'body' => [],
+                'msg' => "Not Updated",
+                'status' => 'Not Updated'
+            ], 400);
+        } catch (Exception $ex) {
+            return response()->json([
+                'body' => [],
+                'msg' => $ex->getMessage(),
+                'status' => 'fail'
+            ], 400);
+        }
+    }
+
+    // this function is for delete subject data
+    public function deleteSubjectData(Request $request, $id)
+    {
+        try {
+            if (is_numeric($id) && $id > 0) {
+                $data = DB::table("subject")->where("subject_id", "=", $id)->delete();
+                if ($data) {
+                    return response()->json([
+                        'body' => [],
+                        'msg' => $data,
+                        'status' => 'Success delete'
+                    ], 200);
+                }
+                return response()->json([
+                    'body' => [],
+                    'msg' => "Requested subject data is not exist",
+                    'status' => 'does\'t exist'
+                ], 200);
+            }
+        } catch (Exception $ex) {
+            return response()->json([
+                'body' => [],
+                'msg' => $ex->getMessage(),
+                'status' => 'fail'
+            ], 400);
+        }
+    }
 }
