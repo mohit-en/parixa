@@ -18,7 +18,7 @@ class Auth_User extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['body' => [], 'message' => $validator->errors(), 'status' => 'fail'], 422);
+            return response()->json(['body' => [], 'msg' => $validator->errors(), 'status' => 'fail'], 422);
         }
 
         try {

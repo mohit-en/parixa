@@ -1,9 +1,11 @@
-function App() {
+import React from "react";
+
+import AllRoutes from "./Routes";
+
+export default function App() {
   return (
-    <div className="App">
-      <h1>Hello world</h1>
-    </div>
+    <>
+      <AllRoutes />
+    </>
   );
 }
-
-export default App;
