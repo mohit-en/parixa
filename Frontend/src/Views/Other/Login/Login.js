@@ -5,17 +5,44 @@ import { StatusAlertService } from "react-status-alert";
 import "./style.css";
 
 export default function Login() {
-  const [email, setEmail] = useState("default@gmail.com");
-  const [password, setPassword] = useState("1234");
+  const [email, setEmail] = useState("admin@admin.com");
+  const [password, setPassword] = useState("123456");
 
   const handleSubmit = async () => {
     if (email && password) {
       try {
-        const res = await Axios.post("http://127.0.0.1:8000/api/auth/login", {
+        // const res = await Axios.post(
+        //   "/api/auth/login",
+        //   {
+        //     email: email,
+        //     password: password,
+        //   },
+        //   {
+        //     withCredentials: true,
+        //   }
+        // );
+        // console.log(res.data);
+
+        var headersList = {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+        };
+
+        var bodyContent = JSON.stringify({
           email: email,
           password: password,
         });
-        console.log(res.data);
+
+        var reqOptions = {
+          url: "/api/auth/login",
+          method: "POST",
+          headers: headersList,
+          data: bodyContent,
+        };
+
+        const { data, status } = await Axios.request(reqOptions);
+
+        console.log(data);
       } catch (err) {
         StatusAlertService.showError(err.response.data.msg);
         console.log(err.response.data);

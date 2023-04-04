@@ -14,10 +14,8 @@ export default function Home() {
 
   const handleIsUserAldradyLogin = async () => {
     try {
-      const res = await Axios.post(
-        "http://127.0.0.1:8000/api/auth/isUserLogin"
-      );
-      // console.log(res.data.body.isUserLogin);
+      const res = await Axios.post("api/auth/isUserLogin", {});
+      console.log(res.data.body.isUserLogin);
       if (res.data.body.isUserLogin) {
         setisLogged(true);
       }

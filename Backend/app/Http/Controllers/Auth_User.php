@@ -100,7 +100,7 @@ class Auth_User extends Controller
 
     public function isUserLogin(Request $request)
     {
-        $isUserSessionCreated = $request->session()->has('user_id') || null;
+        $isUserSessionCreated = $request->session()->has('is_user_login') || null;
 
         return response()->json([
             'body' => ['isUserLogin' => $isUserSessionCreated],

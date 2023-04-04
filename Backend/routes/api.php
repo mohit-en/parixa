@@ -20,9 +20,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/', function () {
+    return response()->json([
+        'msg' => 'hello world'
+    ]);
+});
+
 // used api middleware for session
 Route::middleware('api-session')->group(
     function () {
+
         Route::prefix('auth')->group(function () {
             Route::post('/login', [Auth_User::class, "login"]);
             Route::post('/signup', [Auth_User::class, "signup"]);
