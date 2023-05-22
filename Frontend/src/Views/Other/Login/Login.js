@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import Axios from "axios";
 import { StatusAlertService } from "react-status-alert";
 
+import { useNavigate } from "react-router-dom";
+
 import "./style.css";
 
 export default function Login() {
   const [email, setEmail] = useState("admin@admin.com");
   const [password, setPassword] = useState("123456");
+
+  //
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     if (email && password) {
@@ -42,7 +47,22 @@ export default function Login() {
 
         const { data, status } = await Axios.request(reqOptions);
 
-        console.log(data);
+        StatusAlertService.showSuccess(data.msg);
+
+        switch (data.body.user_role) {
+          case "admin":
+            navigate("/admin", { replace: true });
+            break;
+          case "faculty":
+            navigate("/faculty", { replace: true });
+            break;
+          case "student":
+            navigate("/student", { replace: true });
+            break;
+
+          default:
+            break;
+        }
       } catch (err) {
         StatusAlertService.showError(err.response.data.msg);
         console.log(err.response.data);

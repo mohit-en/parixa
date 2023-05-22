@@ -13,8 +13,16 @@ class Admin extends Controller
 {
     public function dashboard()
     {
+        $allCountOfStudent = DB::table("student")->count();
+        $allCountOfFaculty = DB::table("faculty")->count();
+        $allCountOfCourse = DB::table("course")->count();
+
         return response()->json([
-            'body' => [],
+            'body' => [
+                'totalStudents' => $allCountOfStudent,
+                'totalFaculty' => $allCountOfFaculty,
+                'totalCourse' => $allCountOfCourse
+            ],
             'msg' => "Welcome Admin",
             'status' => 'success'
         ], 200);
@@ -40,7 +48,11 @@ class Admin extends Controller
             }
 
             // fetch specific student data based on id
-            $student = DB::table("student")->select()->where("student_id", "=", $id)->first();
+            $student = DB::table("student")
+                ->leftJoin('users', "users.id", "=", "student.login_user_id")
+                ->select(["users.user_email", "users.user_password", "student.*"])
+                ->where("student.student_id", "=", $id)
+                ->first();
 
             // if we have no record of that specific student then ...
             if (!$student) {
@@ -72,7 +84,7 @@ class Admin extends Controller
             "student_name" => ["required", "regex:/^[a-zA-Z ]+$/", "min:2", "max:100"],
             "student_mobile" => ["required", "regex:/^[0-9]{10}$/"],
             "student_address" => "required|max:200",
-            "student_img" => "required|max:200",
+            "student_img" => "max:200",
             "course_id" => "required|numeric",
             "email" => "required|email",
             "password" => "required|string|min:6",
@@ -128,7 +140,7 @@ class Admin extends Controller
             "student_name" => ["required", "regex:/^[a-zA-Z ]+$/", "min:2", "max:100"],
             "student_mobile" => ["required", "regex:/^[0-9]{10}$/"],
             "student_address" => "required|max:200",
-            "student_img" => "required|max:200",
+            "student_img" => "max:200",
             "course_id" => "required|numeric",
         ]);
 
@@ -176,14 +188,24 @@ class Admin extends Controller
     {
         try {
             if (is_numeric($id) && $id > 0) {
+
+                $loginId = DB::table("student")
+                    ->select("login_user_id")
+                    ->where("student_id", "=", $id)->first();
+                $deleteFromUsersTable = DB::table("users")
+                    ->where("id", "=", $loginId->login_user_id)
+                    ->delete();
                 $data = DB::table("student")->where("student_id", "=", $id)->delete();
-                if ($data) {
+
+                if ($data == 0 && $deleteFromUsersTable == 1) {
                     return response()->json([
-                        'body' => [],
-                        'msg' => $data,
+                        'body' => [$data, $deleteFromUsersTable],
+                        'msg' => 'Student Deleted Succesfully',
+                        // 'msg 2' => $deleteFromUsersTable,
                         'status' => 'Success delete'
                     ], 200);
                 }
+
                 return response()->json([
                     'body' => [],
                     'msg' => "Requested student data is not exist",
@@ -227,8 +249,19 @@ class Admin extends Controller
         }
 
         try {
+
+            $student = DB::table("student")
+                ->leftJoin('users', "users.id", "=", "student.login_user_id")
+                ->select(["users.user_email", "users.user_password", "student.*"])
+                ->where("student.student_id", "=", $id)
+                ->first();
+
             // fetch specific faculty data based on id
-            $faculty = DB::table("faculty")->select()->where("faculty_id", "=", $id)->first();
+            $faculty = DB::table("faculty")
+                ->leftJoin('users', "users.id", "=", "faculty.login_user_id")
+                ->select(["users.user_email", "users.user_password", "faculty.*"])
+                ->where("faculty_id", "=", $id)
+                ->first();
 
             // if we have no record of that specific faculty then ...
             if (!$faculty) {
@@ -260,7 +293,7 @@ class Admin extends Controller
             "faculty_name" => ["required", "regex:/^[a-zA-Z ]+$/", "min:2", "max:100"],
             "faculty_mobile" => ["required", "regex:/^[0-9]{10}$/"],
             "faculty_address" => "required|max:200",
-            "faculty_img" => "required|max:200",
+            "faculty_img" => "max:200",
             "course_id" => "required|numeric",
             "email" => "required|email",
             "password" => "required|min:2|max:100"
@@ -315,7 +348,6 @@ class Admin extends Controller
             "faculty_name" => ["required", "regex:/^[a-zA-Z ]+$/", "min:2", "max:100"],
             "faculty_mobile" => ["required", "regex:/^[0-9]{10}$/"],
             "faculty_address" => "required|max:200",
-            "faculty_img" => "required|max:200",
             "course_id" => "required|numeric",
         ]);
 
@@ -328,9 +360,17 @@ class Admin extends Controller
         }
         // if data is valid then update
         try {
+
+            // print_r($request->except("faculty_id"));
             $data = DB::table("faculty")
                 ->where("faculty_id", "=", $id)
-                ->update($request->except("faculty_id"));
+                ->update($request->all([
+                    "faculty_name",
+                    "faculty_mobile",
+                    "faculty_address",
+                    "course_id"
+                ]));
+
             if ($data) {
                 return response()->json([
                     'body' => [],
@@ -361,7 +401,7 @@ class Admin extends Controller
                 if ($data) {
                     return response()->json([
                         'body' => [],
-                        'msg' => $data,
+                        'msg' => "Successfully Deleted",
                         'status' => 'Success delete'
                     ], 200);
                 }
@@ -521,7 +561,7 @@ class Admin extends Controller
                 if ($data) {
                     return response()->json([
                         'body' => [],
-                        'msg' => $data,
+                        'msg' => "Successfully Deleted",
                         'status' => 'Success delete'
                     ], 200);
                 }
@@ -549,7 +589,11 @@ class Admin extends Controller
         // if admin user want all subject's data
         if ($id == 0) {
             // fetch all subject data from subject table in database
-            $all_subject_data = DB::table("subject")->select()->get();
+
+            $all_subject_data = DB::table("subject")
+                ->leftJoin('course', "course.course_id", "=", "subject.course_id")
+                ->select(["course.course_name", "subject.*"])
+                ->get();
 
             // check that if we have not any record then
             if (!$all_subject_data) {
@@ -569,7 +613,11 @@ class Admin extends Controller
 
         try {
             // fetch specific subject data based on id
-            $subject = DB::table("subject")->select()->where("subject_id", "=", $id)->first();
+            $subject = DB::table("subject")
+                ->leftJoin('course', 'course.course_id', '=', 'subject.course_id')
+                ->select(['course.course_name', 'subject.*'])
+                ->where("subject.subject_id", "=", $id)
+                ->first();
 
             // if we have no record of that specific subject then ...
             if (!$subject) {
@@ -652,7 +700,7 @@ class Admin extends Controller
         try {
             $data = DB::table("subject")
                 ->where("subject_id", "=", $id)
-                ->update($request->except(["subject_id", "course_id", "created_at", "updated_at"]));
+                ->update($request->except(["subject_id", "created_at", "updated_at"]));
             if ($data) {
                 return response()->json([
                     'body' => [],
@@ -683,7 +731,7 @@ class Admin extends Controller
                 if ($data) {
                     return response()->json([
                         'body' => [],
-                        'msg' => $data,
+                        'msg' => "Successfully Deleted",
                         'status' => 'Success delete'
                     ], 200);
                 }

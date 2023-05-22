@@ -9,6 +9,7 @@ admin ->
 
 
 faculty -> 
+(question,options,exam)
 2) mcq add
 3) they can conduct exam
 4) manage time of exam

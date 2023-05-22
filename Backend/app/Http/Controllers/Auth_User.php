@@ -67,7 +67,7 @@ class Auth_User extends Controller
                     ]);
                 }
                 return response()->json([
-                    'body' => [], //$request->session()->all()
+                    'body' => $request->session()->all(),
                     'msg' => "Login Successfully",
                     'status' => 'success'
                 ], 200);
