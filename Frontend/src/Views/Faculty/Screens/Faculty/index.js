@@ -410,7 +410,7 @@ export default function FacultyScreen() {
                         />
                       </FormGroup>
                       <FormGroup>
-                        <Label for="exampleSelect">Course</Label>
+                        <Label>Course</Label>
                         <Input
                           id="exampleSelect"
                           name="course_id"

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment } from "react";
 
 import {
   Row,
@@ -12,8 +12,8 @@ import {
   Label,
   FormGroup,
   Input,
-  Button
-} from 'reactstrap';
+  Button,
+} from "reactstrap";
 
 export default function LivePreviewExample() {
   return (
@@ -45,7 +45,7 @@ export default function LivePreviewExample() {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Label htmlFor="exampleSelect">Select</Label>
+                  <Label>Select</Label>
                   <Input type="select" name="select" id="exampleSelect">
                     <option>1</option>
                     <option>2</option>
@@ -60,7 +60,8 @@ export default function LivePreviewExample() {
                     type="select"
                     name="selectMulti"
                     id="exampleSelectMulti"
-                    multiple>
+                    multiple
+                  >
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -245,7 +246,8 @@ export default function LivePreviewExample() {
                     <CustomInput
                       type="select"
                       id="exampleCustomSelect"
-                      name="customSelect">
+                      name="customSelect"
+                    >
                       <option value="">Select</option>
                       <option>Value 1</option>
                       <option>Value 2</option>
@@ -262,7 +264,8 @@ export default function LivePreviewExample() {
                       type="select"
                       id="exampleCustomMutlipleSelect"
                       name="customSelect"
-                      multiple>
+                      multiple
+                    >
                       <option value="">Select</option>
                       <option>Value 1</option>
                       <option>Value 2</option>
@@ -281,7 +284,8 @@ export default function LivePreviewExample() {
                       type="select"
                       id="exampleCustomSelectDisabled"
                       name="customSelect"
-                      disabled>
+                      disabled
+                    >
                       <option value="">Select</option>
                       <option>Value 1</option>
                       <option>Value 2</option>
@@ -299,7 +303,8 @@ export default function LivePreviewExample() {
                       id="exampleCustomMutlipleSelectDisabled"
                       name="customSelect"
                       multiple
-                      disabled>
+                      disabled
+                    >
                       <option value="">Select</option>
                       <option>Value 1</option>
                       <option>Value 2</option>

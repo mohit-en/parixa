@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Auth_User;
+use App\Http\Controllers\Faculty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -68,6 +69,23 @@ Route::middleware('api-session')->group(
                 Route::post('/add', [Admin::class, "addSubjectData"]);
                 Route::patch("/update/{id}", [Admin::class, "updateSubjectData"]);
                 Route::delete("/delete/{id}", [Admin::class, "deleteSubjectData"]);
+            });
+        });
+
+
+
+        Route::prefix('faculty')->middleware(['faculty-auth'])->group(function () {
+
+            Route::post('/', [Faculty::class, "dashboard"]);
+
+            Route::prefix('question')->group(function () {
+                Route::post('/fetch/{id?}', [Faculty::class, "fetchQuestionData"]);
+                Route::post('/add', [Faculty::class, "addQuestionData"]);
+                Route::patch("/update/{id}", [Faculty::class, "updateQuestionData"]);
+                Route::delete("/delete/{id}", [Faculty::class, "deleteQuestionData"]);
+            });
+            Route::prefix('course')->group(function () {
+                Route::post('/fetch/{id?}', [Faculty::class, "fetchCourseData"]);
             });
         });
     }

@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React, { Fragment } from "react";
 
-import { FormText, Form, Label, FormGroup, Input, Button } from 'reactstrap';
+import { FormText, Form, Label, FormGroup, Input, Button } from "reactstrap";
 
 export default function LivePreviewExample() {
   return (
@@ -25,7 +25,7 @@ export default function LivePreviewExample() {
           />
         </FormGroup>
         <FormGroup>
-          <Label for="exampleSelect">Select</Label>
+          <Label>Select</Label>
           <Input type="select" name="select" id="exampleSelect">
             <option>1</option>
             <option>2</option>
@@ -40,7 +40,8 @@ export default function LivePreviewExample() {
             type="select"
             name="selectMulti"
             id="exampleSelectMulti"
-            multiple>
+            multiple
+          >
             <option>1</option>
             <option>2</option>
             <option>3</option>

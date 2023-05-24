@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import {
   Col,
@@ -7,8 +7,8 @@ import {
   Label,
   FormGroup,
   Input,
-  Button
-} from 'reactstrap';
+  Button,
+} from "reactstrap";
 
 export default function LivePreviewExample() {
   return (
@@ -40,9 +40,7 @@ export default function LivePreviewExample() {
         </Col>
       </FormGroup>
       <FormGroup row>
-        <Label for="exampleSelect" sm={2}>
-          Select
-        </Label>
+        <Label sm={2}>Select</Label>
         <Col sm={10}>
           <Input type="select" name="select" id="exampleSelect" />
         </Col>

@@ -57,7 +57,7 @@ export default function LivePreviewExample() {
                   <div className="d-flex align-items-start my-3">
                     <div className="font-weight-bold">
                       <small className="text-white-50 d-block mb-1 text-uppercase">
-                        Total Students
+                        Total MCQS
                       </small>
                       <span className="font-size-xxl mt-1">
                         {allData.totalStudents}
@@ -81,7 +81,7 @@ export default function LivePreviewExample() {
                   <div className="d-flex align-items-start  my-3">
                     <div className="font-weight-bold">
                       <small className="text-white-50 d-block mb-1 text-uppercase">
-                        Total Facultys
+                        Total Students Given exam
                       </small>
                       <span className="font-size-xxl mt-1">
                         {allData.totalFaculty}
@@ -105,7 +105,7 @@ export default function LivePreviewExample() {
                   <div className="d-flex align-items-start  my-3">
                     <div className="font-weight-bold">
                       <small className="text-white-50 d-block mb-1 text-uppercase">
-                        Total Courses
+                        Total Scheduled exam
                       </small>
                       <span className="font-size-xxl mt-1">
                         {allData.totalCourse}

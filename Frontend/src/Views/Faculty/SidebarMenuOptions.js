@@ -6,7 +6,7 @@ import { Route } from "react-router-dom";
 import Dashboard from "./Screens/Dashboard";
 import Students from "./Screens/Students";
 import Faculty from "./Screens/Faculty";
-import Course from "./Screens/Course";
+import QuestionsScreen from "./Screens/Questions";
 import Subject from "./Screens/Subject";
 // import Approval from "./Screens/Approval";
 // import Profile from "./Screens/Profile";
@@ -21,13 +21,13 @@ const AllRoutes = [
     isSideMenuComponent: true,
   },
   {
-    label: "Course",
+    label: "questions",
     icon: () => (
       <FontAwesomeIcon icon={["fa", "book-reader"]} color={"white"} />
     ),
-    to: "/faculty/course",
-    route: "/course",
-    componet: <Course />,
+    to: "/faculty/questions",
+    route: "/questions",
+    componet: <QuestionsScreen />,
     isSideMenuComponent: true,
   },
   {

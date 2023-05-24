@@ -17,7 +17,7 @@ import {
   Input,
   FormText,
 } from "reactstrap";
-import Axios from "axios";
+import Axios, { formToJSON } from "axios";
 import ReactLoading from "react-spinners/CircleLoader";
 import { StatusAlertService } from "react-status-alert";
 
@@ -27,47 +27,50 @@ import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from "jquery";
 import "jquery/dist/jquery.min.js";
 
-export default function StudentsScreen() {
+export default function QuestionsScreen() {
   const [isLoading, setIsLoading] = useState(true);
-  const [studentsList, setStudentsList] = useState([]);
+  const [questionsList, setQuestionsList] = useState([]);
   const [modal, setModal] = useState(false);
-  const [courseList, setCourseList] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
+  const [courseList, setCourseList] = useState([]);
+  const [subjectList, setSubjectList] = useState([]);
+  const [optionsForUpdate, setOptionsForUpdate] = useState([]);
 
   const [formData, setFormData] = useState({
-    student_name: "",
-    student_mobile: "",
-    student_address: "",
-    course_id: "",
-    email: "",
-    password: "",
-    student_id: 0,
+    question_text: "",
+    option_1: "",
+    option_2: "",
+    option_3: "",
+    option_4: "",
+    correct_option: "",
+    subject_id: 0,
+    course_id: 0,
   });
 
-  //
   const toggle = () => {
     setModal(!modal);
     if (modal && isEdit) {
       setFormData({
-        student_name: "",
-        student_mobile: "",
-        student_address: "",
-        course_id: "",
-        email: "",
-        password: "",
-        student_id: 0,
+        question_text: "",
+        option_1: "",
+        option_2: "",
+        option_3: "",
+        option_4: "",
+        correct_option: "",
+        subject_id: 0,
+        course_id: 0,
       });
+      setOptionsForUpdate([]);
     }
   };
 
-  //
   useEffect(() => {
     $(document).ready(function () {
       $("#dataTable").DataTable();
     });
 
     return () => {};
-  }, [studentsList]);
+  }, [questionsList]);
 
   useEffect(() => {
     fetchingData();
@@ -81,7 +84,7 @@ export default function StudentsScreen() {
       // rest login api here
 
       let reqOptions = {
-        url: "/api/admin/student/fetch",
+        url: "/api/faculty/question/fetch/",
         method: "POST",
         headers: {
           Accept: "*/*",
@@ -91,79 +94,8 @@ export default function StudentsScreen() {
 
       const { status, data } = await Axios.request(reqOptions);
 
-      setStudentsList(data.body);
+      setQuestionsList(data.body);
       setIsLoading(false);
-    } catch (error) {
-      console.log("====================================");
-      console.log(error.response.data.msg);
-      console.log("====================================");
-    }
-  };
-
-  const removeStudent = async (uid) => {
-    try {
-      // rest login api here
-
-      let reqOptions = {
-        url: `/api/admin/student/delete/${uid}`,
-        method: "DELETE",
-        headers: {
-          Accept: "*/*",
-          "Content-Type": "application/json",
-        },
-      };
-
-      const { status, data } = await Axios.request(reqOptions);
-      console.log(data);
-      StatusAlertService.showSuccess(data.msg);
-      await fetchingData();
-    } catch (error) {
-      console.log("====================================");
-      console.log(error.response.data.msg);
-      console.log("====================================");
-    }
-  };
-  const editStudent = async (uid) => {
-    try {
-      // rest login api here
-
-      let reqOptions = {
-        url: `/api/admin/student/fetch/${uid}`,
-        method: "POST",
-        headers: {
-          Accept: "*/*",
-          "Content-Type": "application/json",
-        },
-      };
-
-      const { status, data } = await Axios.request(reqOptions);
-      console.log(data);
-
-      const {
-        student_name,
-        student_mobile,
-        student_address,
-        course_id,
-        user_email,
-        user_password,
-      } = data.body;
-
-      setFormData({
-        student_name,
-        student_mobile,
-        student_address,
-        course_id,
-        email: user_email,
-        password: user_password,
-        student_id: uid,
-      });
-
-      setIsEdit(true);
-
-      toggle();
-
-      // StatusAlertService.showSuccess(data.msg);
-      // await fetchingData();
     } catch (error) {
       console.log("====================================");
       console.log(error.response.data.msg);
@@ -173,10 +105,8 @@ export default function StudentsScreen() {
 
   const fetchingCourseList = async () => {
     try {
-      // rest login api here
-
       let reqOptions = {
-        url: "/api/admin/course/fetch/",
+        url: "/api/faculty/course/fetch/",
         method: "POST",
         headers: {
           Accept: "*/*",
@@ -186,7 +116,8 @@ export default function StudentsScreen() {
 
       const { status, data } = await Axios.request(reqOptions);
 
-      setCourseList(data.body);
+      setCourseList(data.body.course);
+      setSubjectList(data.body.subjects);
     } catch (error) {
       console.log("====================================");
       console.log(error.response.data.msg);
@@ -194,36 +125,140 @@ export default function StudentsScreen() {
     }
   };
 
-  const handleFormChange = (e) => {
-    setFormData({
+  const removequestion = async (uid) => {
+    try {
+      let reqOptions = {
+        url: `/api/faculty/question/delete/${uid}`,
+        method: "DELETE",
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+        },
+      };
+
+      const { status, data } = await Axios.request(reqOptions);
+      // console.log(data);
+      StatusAlertService.showSuccess(data.msg);
+      await fetchingData();
+    } catch (error) {
+      console.log("====================================");
+      console.log(error.response.data.msg);
+      console.log("====================================");
+    }
+  };
+  const editQuestion = async (uid) => {
+    try {
+      let reqOptions = {
+        url: `/api/faculty/question/fetch/${uid}`,
+        method: "POST",
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+        },
+      };
+
+      const { status, data } = await Axios.request(reqOptions);
+      // console.log(data.body);
+
+      setFormData({
+        question_text: data.body.question_text,
+        option_1: data.body.options[0].option_text,
+        option_2: data.body.options[1].option_text,
+        option_3: data.body.options[2].option_text,
+        option_4: data.body.options[3].option_text,
+        correct_option:
+          data.body.options[
+            data.body.options.findIndex((child) => child.is_answer == 1)
+          ].option_text,
+        subject_id: data.body.subject_id,
+        course_id: data.body.course_id,
+      });
+      setOptionsForUpdate({
+        question_id: data.body.question_id,
+        options: [
+          {
+            option_id: data.body.options[0].option_id,
+            option_text: data.body.options[0].option_text,
+          },
+          {
+            option_id: data.body.options[1].option_id,
+            option_text: data.body.options[1].option_text,
+          },
+          {
+            option_id: data.body.options[2].option_id,
+            option_text: data.body.options[2].option_text,
+          },
+          {
+            option_id: data.body.options[3].option_id,
+            option_text: data.body.options[3].option_text,
+          },
+        ],
+      });
+      // console.log("====================================");
+      // console.log(formData);
+      // console.log("====================================");
+
+      setIsEdit(true);
+
+      toggle();
+    } catch (error) {
+      console.log("====================================");
+      console.log(error.response.data.msg);
+      console.log("====================================");
+    }
+  };
+
+  const handleFormChange = async (e) => {
+    await setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+
     // console.log("====================================");
     // console.log(formData);
     // console.log("====================================");
   };
   const handleFormSubmit = async (e) => {
     try {
+      // console.log("====================================");
+      // console.log(formData);
+      // console.log("====================================");
       let headersList = {
         Accept: "*/*",
-        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
         "Content-Type": "application/json",
       };
 
       for (const key in formData) {
         const element = formData[key];
 
-        if (key != "student_id" && element == "") {
+        if (element == "") {
           StatusAlertService.showError(`Please Fill ${key} `);
           return;
         }
       }
 
-      let bodyContent = JSON.stringify(formData);
+      const option = [
+        formData.option_1,
+        formData.option_2,
+        formData.option_3,
+        formData.option_4,
+      ];
+
+      let bodyContent = JSON.stringify({
+        question_text: formData.question_text,
+        rightAnswer: option.findIndex(
+          (option) => option === formData.correct_option
+        ),
+        options: option,
+        subject_id: formData.subject_id,
+        course_id: formData.course_id,
+      });
+      // console.log("====================================");
+      // console.log(bodyContent);
+      // console.log("====================================");
 
       let reqOptions = {
-        url: "/api/admin/student/add",
+        url: "/api/faculty/question/add",
         method: "POST",
         headers: headersList,
         data: bodyContent,
@@ -236,7 +271,7 @@ export default function StudentsScreen() {
 
       await fetchingData();
 
-      console.log(response.data.msg);
+      // console.log(response.data.msg);
     } catch (error) {
       console.log("====================================");
       console.log(error.response.data.msg);
@@ -248,23 +283,40 @@ export default function StudentsScreen() {
     try {
       let headersList = {
         Accept: "*/*",
-        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
         "Content-Type": "application/json",
       };
 
       for (const key in formData) {
         const element = formData[key];
 
-        if (element == "" && element != "student_id") {
+        if (element == "" && element != "course_id") {
           StatusAlertService.showError(`Please Fill ${key} `);
           return;
         }
       }
 
-      let bodyContent = JSON.stringify(formData);
+      const option = [
+        formData.option_1,
+        formData.option_2,
+        formData.option_3,
+        formData.option_4,
+      ];
+      let bodyContent = JSON.stringify({
+        question_text: formData.question_text,
+        rightAnswer: option.findIndex(
+          (option) => option === formData.correct_option
+        ),
+        options: optionsForUpdate.options,
+        subject_id: formData.subject_id,
+        course_id: formData.course_id,
+      });
+
+      // console.log("====================================");
+      // console.log(bodyContent);
+      // console.log("====================================");
 
       let reqOptions = {
-        url: `/api/admin/student/update/${formData.student_id}`,
+        url: `/api/faculty/question/update/${optionsForUpdate.question_id}`,
         method: "PATCH",
         headers: headersList,
         data: bodyContent,
@@ -277,17 +329,7 @@ export default function StudentsScreen() {
 
       await fetchingData();
 
-      console.log(response.data.msg);
-
-      setFormData({
-        course_id: "",
-        email: "",
-        password: "",
-        student_address: "",
-        student_id: "",
-        student_mobile: "",
-        student_name: "",
-      });
+      // console.log(response.data.msg);
     } catch (error) {
       console.log("====================================");
       console.log(error.response.data.msg);
@@ -307,7 +349,7 @@ export default function StudentsScreen() {
             ) : (
               <div>
                 <div className="w-100 d-flex justify-content-between align-items-center my-2 text-dark">
-                  <h4>Students Data</h4>
+                  <h4>Questions Data</h4>
                   <button
                     className="btn btn-primary"
                     onClick={() => {
@@ -327,28 +369,30 @@ export default function StudentsScreen() {
                   <thead>
                     <tr>
                       <th>No.</th>
-                      <th>User Name</th>
-                      <th>Mobile No</th>
+                      <th>Questions</th>
+                      <th>Subject</th>
+                      <th>Course</th>
                       <th>Operation</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {studentsList.map((ls, i) => {
+                    {questionsList.map((ls, i) => {
                       return (
                         <tr key={i}>
                           <th>{i + 1}</th>
-                          <th>{ls.student_name}</th>
-                          <th>{ls.student_mobile}</th>
+                          <th>{ls.question_text}</th>
+                          <th>{ls.subject_name}</th>
+                          <th>{ls.course_name}</th>
                           <th>
                             <span
                               className="btn btn-info rounded-circle mr-2"
-                              onClick={() => editStudent(ls.student_id)}
+                              onClick={() => editQuestion(ls.question_id)}
                             >
                               <FontAwesomeIcon icon={"edit"} color="#fff" />
                             </span>
                             <span
                               className="btn btn-danger rounded-circle"
-                              onClick={() => removeStudent(ls.student_id)}
+                              onClick={() => removequestion(ls.question_id)}
                             >
                               <FontAwesomeIcon icon={"trash"} color="#fff" />
                             </span>
@@ -362,39 +406,19 @@ export default function StudentsScreen() {
                 {/*  */}
                 <Modal isOpen={modal} toggle={toggle} centered>
                   <ModalHeader toggle={toggle}>
-                    {isEdit ? "Edit Student" : "Add New Student"}
+                    {isEdit ? "Edit Question" : "Add New Question"}
                   </ModalHeader>
                   <ModalBody>
                     {/*  */}
                     <Form>
                       <FormGroup>
-                        <Label>Name</Label>
+                        <Label>Enter Question</Label>
                         <Input
-                          name="student_name"
-                          placeholder="Enter Name"
+                          name="question_text"
+                          placeholder="Enter Question"
                           type="text"
                           onChange={handleFormChange}
-                          value={formData.student_name}
-                        />
-                      </FormGroup>
-                      <FormGroup>
-                        <Label>Moblie No</Label>
-                        <Input
-                          name="student_mobile"
-                          placeholder="Enter Moblie No"
-                          type="text"
-                          onChange={handleFormChange}
-                          value={formData.student_mobile}
-                        />
-                      </FormGroup>
-                      <FormGroup>
-                        <Label>Address</Label>
-                        <Input
-                          name="student_address"
-                          placeholder="Enter Address"
-                          type="text"
-                          onChange={handleFormChange}
-                          value={formData.student_address}
+                          value={formData.question_text}
                         />
                       </FormGroup>
                       <FormGroup>
@@ -406,7 +430,7 @@ export default function StudentsScreen() {
                           onChange={handleFormChange}
                           value={formData.course_id}
                         >
-                          <option value={""}>Select Option</option>
+                          <option value={""}>Select Course</option>
                           {courseList.map((item, index) => {
                             return (
                               <option
@@ -420,28 +444,95 @@ export default function StudentsScreen() {
                         </Input>
                       </FormGroup>
                       <FormGroup>
-                        <Label>Email</Label>
+                        <Label>Subject</Label>
                         <Input
-                          name="email"
-                          placeholder="Enter Email"
+                          id="exampleSelect"
+                          name="subject_id"
+                          type="select"
+                          onChange={handleFormChange}
+                          value={formData.subject_id}
+                        >
+                          <option value={""}>Select Subject</option>
+                          {subjectList
+                            .filter(
+                              (item, index) =>
+                                formData.course_id == item.course_id
+                            )
+                            .map((item) => {
+                              return (
+                                <option
+                                  key={item.subject_id}
+                                  value={item.subject_id}
+                                >
+                                  {item.subject_name}
+                                </option>
+                              );
+                            })}
+                        </Input>
+                      </FormGroup>
+                      <FormGroup>
+                        <Label>Option 1</Label>
+                        <Input
+                          name="option_1"
+                          placeholder="Enter Option 1"
                           type="text"
                           onChange={handleFormChange}
-                          value={formData.email}
-                          disabled={isEdit}
+                          value={formData.option_1}
                         />
                       </FormGroup>
-                      {!isEdit ? (
-                        <FormGroup>
-                          <Label>Passowrd</Label>
-                          <Input
-                            name="password"
-                            placeholder="Enter Student Password"
-                            type="password"
-                            onChange={handleFormChange}
-                            value={formData.password}
-                          />
-                        </FormGroup>
-                      ) : null}
+                      <FormGroup>
+                        <Label>Option 2</Label>
+                        <Input
+                          name="option_2"
+                          placeholder="Enter Option 2"
+                          type="text"
+                          onChange={handleFormChange}
+                          value={formData.option_2}
+                        />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label>Option 3</Label>
+                        <Input
+                          name="option_3"
+                          placeholder="Enter Option 3"
+                          type="text"
+                          onChange={handleFormChange}
+                          value={formData.option_3}
+                        />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label>Option 4</Label>
+                        <Input
+                          name="option_4"
+                          placeholder="Enter Option 4"
+                          type="text"
+                          onChange={handleFormChange}
+                          value={formData.option_4}
+                        />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label>Select Correct Option</Label>
+                        <Input
+                          type="select"
+                          name="correct_option"
+                          onChange={handleFormChange}
+                          value={formData.correct_option}
+                        >
+                          <option value="">Select Correct Option</option>
+                          <option key="option_1" value={formData.option_1}>
+                            Option 1
+                          </option>
+                          <option key="option_2" value={formData.option_2}>
+                            Option 2
+                          </option>
+                          <option key="option_3" value={formData.option_3}>
+                            Option 3
+                          </option>
+                          <option key="option_4" value={formData.option_4}>
+                            Option 4
+                          </option>
+                        </Input>
+                      </FormGroup>
                     </Form>
                     {/*  */}
                   </ModalBody>
@@ -452,7 +543,7 @@ export default function StudentsScreen() {
                       </Button>
                     ) : (
                       <Button onClick={handleFormSubmit} color="primary">
-                        Add Student
+                        Add Question
                       </Button>
                     )}
                     <Button color="secondary" onClick={toggle}>

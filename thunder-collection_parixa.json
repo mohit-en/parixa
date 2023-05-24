@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "parixa",
-    "dateExported": "2023-03-23T05:55:02.435Z",
+    "dateExported": "2023-05-23T00:12:13.301Z",
     "version": "1.1",
     "folders": [
         {
@@ -12,6 +12,13 @@
             "sortNum": 10000
         },
         {
+            "_id": "09d3016a-07e4-48c7-ba6a-fa45f6cf1c66",
+            "name": "Auth",
+            "containerId": "f9596a5d-f89b-4b34-a092-e7151f4a74fe",
+            "created": "2023-05-22T08:51:06.153Z",
+            "sortNum": 10000
+        },
+        {
             "_id": "ebfb162a-a8d8-4a42-8167-9870f8c43685",
             "name": "Admin",
             "containerId": "",
@@ -19,10 +26,10 @@
             "sortNum": 20000
         },
         {
-            "_id": "5de87bc1-cc35-430e-8694-5bacaf693d2a",
+            "_id": "f9596a5d-f89b-4b34-a092-e7151f4a74fe",
             "name": "Faculty",
             "containerId": "",
-            "created": "2023-03-19T14:20:21.279Z",
+            "created": "2023-05-22T08:51:06.152Z",
             "sortNum": 30000
         },
         {
@@ -30,6 +37,13 @@
             "name": "Student",
             "containerId": "",
             "created": "2023-03-19T14:20:26.496Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "00857cc2-e4c6-464c-9365-ccda7d7d6731",
+            "name": "question",
+            "containerId": "f9596a5d-f89b-4b34-a092-e7151f4a74fe",
+            "created": "2023-05-22T08:51:06.156Z",
             "sortNum": 40000
         },
         {
@@ -47,11 +61,67 @@
             "sortNum": 70000
         },
         {
+            "_id": "76a71f3b-ac06-4e08-868d-444b54a9e9b0",
+            "name": "student",
+            "containerId": "f9596a5d-f89b-4b34-a092-e7151f4a74fe",
+            "created": "2023-05-22T08:51:06.154Z",
+            "sortNum": 70000
+        },
+        {
             "_id": "9a0faf3c-631e-4de1-9326-ec7925d3e113",
             "name": "faculty",
             "containerId": "ebfb162a-a8d8-4a42-8167-9870f8c43685",
             "created": "2023-03-23T05:33:16.851Z",
             "sortNum": 80000
+        },
+        {
+            "_id": "37abef74-f566-487d-8c6a-117b578e6b74",
+            "name": "faculty",
+            "containerId": "f9596a5d-f89b-4b34-a092-e7151f4a74fe",
+            "created": "2023-05-22T08:51:06.155Z",
+            "sortNum": 80000
+        },
+        {
+            "_id": "5444d019-0933-46f2-b1e6-518fc1d0fa91",
+            "name": "course",
+            "containerId": "ebfb162a-a8d8-4a42-8167-9870f8c43685",
+            "created": "2023-03-26T11:07:12.944Z",
+            "sortNum": 95000
+        },
+        {
+            "_id": "a77fa5da-f7a1-4b0e-8a6b-46f0c9eec1d8",
+            "name": "subject",
+            "containerId": "ebfb162a-a8d8-4a42-8167-9870f8c43685",
+            "created": "2023-03-26T12:59:13.437Z",
+            "sortNum": 100000
+        },
+        {
+            "_id": "871b0680-f780-4676-9ad3-e48f85cc88b6",
+            "name": "subject",
+            "containerId": "f9596a5d-f89b-4b34-a092-e7151f4a74fe",
+            "created": "2023-05-22T08:51:06.158Z",
+            "sortNum": 100000
+        },
+        {
+            "_id": "68297154-a5bb-4f25-b8cd-e7330d7788d6",
+            "name": "dashboard",
+            "containerId": "ebfb162a-a8d8-4a42-8167-9870f8c43685",
+            "created": "2023-05-22T05:53:16.399Z",
+            "sortNum": 110000
+        },
+        {
+            "_id": "e5446cc3-f2ff-4e36-aecc-d4f5ccfc5ea8",
+            "name": "dashboard",
+            "containerId": "f9596a5d-f89b-4b34-a092-e7151f4a74fe",
+            "created": "2023-05-22T08:51:06.159Z",
+            "sortNum": 110000
+        },
+        {
+            "_id": "8102f537-b272-40e9-992b-e1ff59e189fd",
+            "name": "course",
+            "containerId": "00857cc2-e4c6-464c-9365-ccda7d7d6731",
+            "created": "2023-05-22T23:52:54.482Z",
+            "sortNum": 120000
         }
     ],
     "requests": [
@@ -78,12 +148,31 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-03-19T14:39:05.555Z",
-            "modified": "2023-03-19T15:44:25.137Z",
+            "modified": "2023-03-25T12:13:54.175Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"email\":\"admin@admin.com\",\n  \"password\":\"123456\",\n  \"user_role\":1\n}",
+                "raw": "{\n  \"email\":\"admin@admin.com\",\n  \"password\":\"123456\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "71999708-7ba1-46d2-93df-da8967f553fe",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "09d3016a-07e4-48c7-ba6a-fa45f6cf1c66",
+            "name": "Login Faculty",
+            "url": "http://127.0.0.1:8000/api/auth/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-05-22T08:51:06.152Z",
+            "modified": "2023-05-22T08:51:55.585Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\":\"karishma@g.c\",\n  \"password\":\"123456\"\n}",
                 "form": []
             },
             "tests": []
@@ -103,6 +192,20 @@
             "tests": []
         },
         {
+            "_id": "d02182af-b102-4361-844d-67c6ecf239dc",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "09d3016a-07e4-48c7-ba6a-fa45f6cf1c66",
+            "name": "Logout Faculty",
+            "url": "http://127.0.0.1:8000/api/auth/logout",
+            "method": "POST",
+            "sortNum": 12500,
+            "created": "2023-05-22T08:51:06.153Z",
+            "modified": "2023-05-22T08:51:06.152Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
             "_id": "61eeb797-bf1e-4341-8aa6-f3e180040424",
             "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
             "containerId": "30b76e76-2895-4942-8ade-60aca0a5ed8d",
@@ -117,6 +220,20 @@
             "tests": []
         },
         {
+            "_id": "18957bc1-5101-492f-bb79-05f31ff0ed35",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "09d3016a-07e4-48c7-ba6a-fa45f6cf1c66",
+            "name": "Check Is User Login",
+            "url": "http://127.0.0.1:8000/api/auth/isUserLogin",
+            "method": "POST",
+            "sortNum": 13750,
+            "created": "2023-05-22T08:51:06.154Z",
+            "modified": "2023-05-22T08:51:06.152Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
             "_id": "f4284fb2-a6ea-4d02-aa41-86a9adb2d99e",
             "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
             "containerId": "30b76e76-2895-4942-8ade-60aca0a5ed8d",
@@ -126,6 +243,20 @@
             "sortNum": 23750,
             "created": "2023-03-22T17:26:57.143Z",
             "modified": "2023-03-22T17:27:18.555Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "82eba1c7-cbee-4e4a-8ca9-7f779c14f434",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "09d3016a-07e4-48c7-ba6a-fa45f6cf1c66",
+            "name": "Admin Home",
+            "url": "http://127.0.0.1:8000/api/admin",
+            "method": "POST",
+            "sortNum": 23750,
+            "created": "2023-05-22T08:51:06.155Z",
+            "modified": "2023-05-22T08:51:06.152Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -159,15 +290,99 @@
             "tests": []
         },
         {
+            "_id": "36ed57d5-f557-4ea6-bb19-e728e88221c9",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "5444d019-0933-46f2-b1e6-518fc1d0fa91",
+            "name": "fetch",
+            "url": "http://127.0.0.1:8000/api/admin/course/fetch/",
+            "method": "POST",
+            "sortNum": 33750,
+            "created": "2023-03-26T11:07:12.944Z",
+            "modified": "2023-03-26T11:07:37.509Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "ed2a22cd-f7ff-4223-8a14-9cb1e8b63020",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "a77fa5da-f7a1-4b0e-8a6b-46f0c9eec1d8",
+            "name": "fetch",
+            "url": "http://127.0.0.1:8000/api/admin/subject/fetch/",
+            "method": "POST",
+            "sortNum": 33750,
+            "created": "2023-03-26T12:59:13.437Z",
+            "modified": "2023-03-26T13:01:14.480Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "a7c23e1e-550b-439c-ab1c-70fc7d5708b9",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "76a71f3b-ac06-4e08-868d-444b54a9e9b0",
+            "name": "fetch",
+            "url": "http://127.0.0.1:8000/api/admin/student/fetch",
+            "method": "POST",
+            "sortNum": 33750,
+            "created": "2023-05-22T08:51:06.156Z",
+            "modified": "2023-05-22T08:51:06.152Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "376777f6-f630-4768-9db0-ac4281e4cd1b",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "37abef74-f566-487d-8c6a-117b578e6b74",
+            "name": "fetch",
+            "url": "http://127.0.0.1:8000/api/admin/faculty/fetch/",
+            "method": "POST",
+            "sortNum": 33750,
+            "created": "2023-05-22T08:51:06.161Z",
+            "modified": "2023-05-22T08:51:06.152Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "af4e9b38-3c96-438c-b7ba-4339f1a63dac",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "00857cc2-e4c6-464c-9365-ccda7d7d6731",
+            "name": "fetch",
+            "url": "http://127.0.0.1:8000/api/faculty/question/fetch/",
+            "method": "POST",
+            "sortNum": 33750,
+            "created": "2023-05-22T08:51:06.167Z",
+            "modified": "2023-05-22T09:13:38.678Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "eb4a0890-8777-495b-848e-4bab0d1aff76",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "871b0680-f780-4676-9ad3-e48f85cc88b6",
+            "name": "fetch",
+            "url": "http://127.0.0.1:8000/api/admin/subject/fetch/",
+            "method": "POST",
+            "sortNum": 33750,
+            "created": "2023-05-22T08:51:06.172Z",
+            "modified": "2023-05-22T08:51:06.153Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
             "_id": "2ac1fba9-98a6-4039-9927-c48cfc57780d",
             "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
             "containerId": "fbf19552-8a9b-45e5-989f-7207756d55bc",
             "name": "fetch student with id",
-            "url": "http://127.0.0.1:8000/api/admin/student/fetch",
+            "url": "http://127.0.0.1:8000/api/admin/student/fetch/3",
             "method": "POST",
             "sortNum": 38750,
             "created": "2023-03-22T17:41:00.328Z",
-            "modified": "2023-03-22T17:41:00.328Z",
+            "modified": "2023-05-21T05:49:52.890Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -177,11 +392,95 @@
             "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
             "containerId": "9a0faf3c-631e-4de1-9326-ec7925d3e113",
             "name": "fetch faculty with id",
-            "url": "http://127.0.0.1:8000/api/admin/faculty/fetch/4",
+            "url": "http://127.0.0.1:8000/api/admin/faculty/fetch/12",
             "method": "POST",
             "sortNum": 38750,
             "created": "2023-03-23T05:33:16.852Z",
-            "modified": "2023-03-23T05:51:55.305Z",
+            "modified": "2023-05-21T10:43:01.217Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d9f33cf6-24e1-43f9-a900-e943c19826ef",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "5444d019-0933-46f2-b1e6-518fc1d0fa91",
+            "name": "fetch course with id",
+            "url": "http://127.0.0.1:8000/api/admin/course/fetch/7",
+            "method": "POST",
+            "sortNum": 38750,
+            "created": "2023-03-26T11:07:12.945Z",
+            "modified": "2023-05-23T00:10:05.277Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "c780adfa-11d4-40f1-8968-a55b42c48390",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "a77fa5da-f7a1-4b0e-8a6b-46f0c9eec1d8",
+            "name": "fetch subject with id",
+            "url": "http://127.0.0.1:8000/api/admin/subject/fetch/1",
+            "method": "POST",
+            "sortNum": 38750,
+            "created": "2023-03-26T12:59:13.438Z",
+            "modified": "2023-05-22T01:26:30.848Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "566306c6-0d32-4f11-afd0-02995954b34f",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "76a71f3b-ac06-4e08-868d-444b54a9e9b0",
+            "name": "fetch student with id",
+            "url": "http://127.0.0.1:8000/api/admin/student/fetch/3",
+            "method": "POST",
+            "sortNum": 38750,
+            "created": "2023-05-22T08:51:06.157Z",
+            "modified": "2023-05-22T08:51:06.152Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "c8fd59c2-ece4-4dfc-b794-55eb814a36d1",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "37abef74-f566-487d-8c6a-117b578e6b74",
+            "name": "fetch faculty with id",
+            "url": "http://127.0.0.1:8000/api/admin/faculty/fetch/12",
+            "method": "POST",
+            "sortNum": 38750,
+            "created": "2023-05-22T08:51:06.162Z",
+            "modified": "2023-05-22T08:51:06.152Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "eb3d14f1-82eb-49b6-9e3b-e4b64d4444d2",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "00857cc2-e4c6-464c-9365-ccda7d7d6731",
+            "name": "fetch question with id",
+            "url": "http://127.0.0.1:8000/api/faculty/question/fetch/7",
+            "method": "POST",
+            "sortNum": 38750,
+            "created": "2023-05-22T08:51:06.168Z",
+            "modified": "2023-05-22T11:47:19.851Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2c98f254-853b-4fb6-a9e7-f4becbbbae58",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "871b0680-f780-4676-9ad3-e48f85cc88b6",
+            "name": "fetch subject with id",
+            "url": "http://127.0.0.1:8000/api/admin/subject/fetch/1",
+            "method": "POST",
+            "sortNum": 38750,
+            "created": "2023-05-22T08:51:06.173Z",
+            "modified": "2023-05-22T08:51:06.153Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -195,12 +494,12 @@
             "method": "POST",
             "sortNum": 43750,
             "created": "2023-03-22T17:40:36.762Z",
-            "modified": "2023-03-23T01:29:31.050Z",
+            "modified": "2023-05-21T00:18:08.155Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\r\n  \"student_id\": 10,\r\n  \"student_name\": \"Margaux Devennie\",\r\n  \"student_mobile\": \"7036089593\",\r\n  \"student_address\": \"mdevennie9@wired.com\",\r\n  \"student_img\": \"http://dummyimage.com/241x100.png/ff4444/ffffff\",\r\n  \"course_id\": 2,\r\n  \"login_user_id\": 84\r\n}",
+                "raw": "{\n  \"student_name\": \"Kavya Patel\",\n  \"student_mobile\": \"7036089593\",\n  \"student_address\": \"Navsari, Gujarat India\",\n  \"student_img\": \"https://dummyimage.com/241x100.png/ff4444/ffffff\",\n  \"course_id\": 1,\n  \"email\":\"Kavya@gmailtch.com\",\n  \"password\":\"345789\"\n}",
                 "form": []
             },
             "tests": []
@@ -214,12 +513,126 @@
             "method": "POST",
             "sortNum": 43750,
             "created": "2023-03-23T05:33:16.853Z",
-            "modified": "2023-03-23T05:53:19.110Z",
+            "modified": "2023-05-22T07:24:24.101Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"faculty_name\": \"Mohit\",\n  \"faculty_mobile\": \"5431739287\",\n  \"faculty_address\": \"9372 Esch Point\",\n  \"faculty_img\": \"http://dummyimage.com/441x306.png/5fa2dd/ffffff\",\n  \"course_id\": 2,\n  \"login_user_id\": 21\n}",
+                "raw": "{\n  \"faculty_name\": \"Mohit\",\n  \"faculty_mobile\": \"5431739287\",\n  \"faculty_address\": \"9372 Esch Point\",\n  \"faculty_img\": \"http://dummyimage.com/441x306.png/5fa2dd/ffffff\",\n  \"course_id\": 7,\n  \"email\":\"mohit@gma.com\",\n  \"password\":\"abc123567\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "01c6c807-bdea-4ee3-8c37-ce3b67d0aef4",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "5444d019-0933-46f2-b1e6-518fc1d0fa91",
+            "name": "add course",
+            "url": "http://127.0.0.1:8000/api/admin/course/add",
+            "method": "POST",
+            "sortNum": 43750,
+            "created": "2023-03-26T11:07:12.946Z",
+            "modified": "2023-05-21T00:02:29.771Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"course_name\": \"M Tech\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ec25e955-a052-44eb-88be-d193388958bc",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "a77fa5da-f7a1-4b0e-8a6b-46f0c9eec1d8",
+            "name": "add subject",
+            "url": "http://127.0.0.1:8000/api/admin/subject/add",
+            "method": "POST",
+            "sortNum": 43750,
+            "created": "2023-03-26T12:59:13.439Z",
+            "modified": "2023-05-22T01:25:34.175Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"subject_name\": \"Ruby\",\n  \"course_id\": 15\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "82cffca7-4635-4bd6-8e3e-493a33a0d96b",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "76a71f3b-ac06-4e08-868d-444b54a9e9b0",
+            "name": "add student",
+            "url": "http://127.0.0.1:8000/api/admin/student/add",
+            "method": "POST",
+            "sortNum": 43750,
+            "created": "2023-05-22T08:51:06.158Z",
+            "modified": "2023-05-22T08:51:06.152Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"student_name\": \"Kavya Patel\",\n  \"student_mobile\": \"7036089593\",\n  \"student_address\": \"Navsari, Gujarat India\",\n  \"student_img\": \"https://dummyimage.com/241x100.png/ff4444/ffffff\",\n  \"course_id\": 1,\n  \"email\":\"Kavya@gmailtch.com\",\n  \"password\":\"345789\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "d7c31ba7-5993-4542-8443-54a5599bd934",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "37abef74-f566-487d-8c6a-117b578e6b74",
+            "name": "add faculty",
+            "url": "http://127.0.0.1:8000/api/admin/faculty/add",
+            "method": "POST",
+            "sortNum": 43750,
+            "created": "2023-05-22T08:51:06.163Z",
+            "modified": "2023-05-22T08:51:06.152Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"faculty_name\": \"Mohit\",\n  \"faculty_mobile\": \"5431739287\",\n  \"faculty_address\": \"9372 Esch Point\",\n  \"faculty_img\": \"http://dummyimage.com/441x306.png/5fa2dd/ffffff\",\n  \"course_id\": 7,\n  \"email\":\"mohit@gma.com\",\n  \"password\":\"abc123567\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "1d099031-f7e3-4a95-aa04-1739c496fdb5",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "00857cc2-e4c6-464c-9365-ccda7d7d6731",
+            "name": "add question",
+            "url": "http://127.0.0.1:8000/api/faculty/question/add",
+            "method": "POST",
+            "sortNum": 43750,
+            "created": "2023-05-22T08:51:06.169Z",
+            "modified": "2023-05-22T11:48:07.153Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"question_text\": \"What Is Full Form Of QM\",\n  \"rightAnswer\":2,\n  \"options\": [\n      \"WWE\",\n      \"WWF\",\n      \"Quality Management\",\n      \"World Wide Web\"\n    ],\n    \"subject_id\": 12,\n    \"course_id\":11\n} ",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0888581d-ec02-481f-870c-0568233f9e95",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "871b0680-f780-4676-9ad3-e48f85cc88b6",
+            "name": "add subject",
+            "url": "http://127.0.0.1:8000/api/admin/subject/add",
+            "method": "POST",
+            "sortNum": 43750,
+            "created": "2023-05-22T08:51:06.174Z",
+            "modified": "2023-05-22T08:51:06.153Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"subject_name\": \"Ruby\",\n  \"course_id\": 15\n}",
                 "form": []
             },
             "tests": []
@@ -229,16 +642,16 @@
             "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
             "containerId": "fbf19552-8a9b-45e5-989f-7207756d55bc",
             "name": "update student",
-            "url": "http://127.0.0.1:8000/api/admin/student/update/6",
+            "url": "http://127.0.0.1:8000/api/admin/student/update/1",
             "method": "PATCH",
             "sortNum": 53750,
             "created": "2023-03-23T04:43:17.224Z",
-            "modified": "2023-03-23T05:08:15.307Z",
+            "modified": "2023-03-25T17:30:22.559Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"student_id\":4,\n  \"student_name\": \"Mistry Mohit\",\n  \"student_mobile\": \"7036089593\",\n  \"student_address\": \"mdevennie9@wired.com\",\n  \"student_img\": \"http://dummyimage.com/241x100.png/ff4444/ffffff\",\n  \"course_id\": 2,\n  \"login_user_id\": 84\n}",
+                "raw": "{\n  \"student_name\": \"Mistry Mohit A\",\n  \"student_mobile\": \"7036089593\",\n  \"student_address\": \"mdevennie9@wired.com\",\n  \"student_img\": \"http://dummyimage.com/241x100.png/ff4444/ffffff\",\n  \"course_id\": 6\n}",
                 "form": []
             },
             "tests": []
@@ -248,16 +661,130 @@
             "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
             "containerId": "9a0faf3c-631e-4de1-9326-ec7925d3e113",
             "name": "update faculty",
-            "url": "http://127.0.0.1:8000/api/admin/faculty/update/8",
+            "url": "http://127.0.0.1:8000/api/admin/faculty/update/14",
             "method": "PATCH",
             "sortNum": 53750,
             "created": "2023-03-23T05:33:16.854Z",
-            "modified": "2023-03-23T05:53:56.273Z",
+            "modified": "2023-05-22T04:46:38.207Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"faculty_name\": \"Husain Standish\",\n  \"faculty_mobile\": \"1134757821\",\n  \"faculty_address\": \"70 Oxford Drive\",\n  \"faculty_img\": \"http://dummyimage.com/356x477.png/cc0000/ffffff\",\n  \"course_id\": 2,\n  \"login_user_id\": 67\n}",
+                "raw": "{\n  \"faculty_name\": \"Karishma A Mistry\",\n  \"faculty_mobile\": \"1134757821\",\n  \"faculty_address\": \"70 Oxford Drive\",\n  \"course_id\": 7\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "c4706fd9-c406-46a1-bb6e-e9e36508700b",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "5444d019-0933-46f2-b1e6-518fc1d0fa91",
+            "name": "update course",
+            "url": "http://127.0.0.1:8000/api/admin/course/update/11",
+            "method": "PATCH",
+            "sortNum": 53750,
+            "created": "2023-03-26T11:07:12.947Z",
+            "modified": "2023-03-27T16:57:43.482Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"course_name\": \"BBA(Bachelor of Business Administration)\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "d05dcde2-ad11-4879-8f91-6eaa0be87954",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "a77fa5da-f7a1-4b0e-8a6b-46f0c9eec1d8",
+            "name": "update subject",
+            "url": "http://127.0.0.1:8000/api/admin/subject/update/1",
+            "method": "PATCH",
+            "sortNum": 53750,
+            "created": "2023-03-26T12:59:13.440Z",
+            "modified": "2023-05-22T01:26:51.193Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"subject_name\": \"data structure 2\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f21b8822-5b78-4d49-8e8d-061f216b02fb",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "76a71f3b-ac06-4e08-868d-444b54a9e9b0",
+            "name": "update student",
+            "url": "http://127.0.0.1:8000/api/admin/student/update/1",
+            "method": "PATCH",
+            "sortNum": 53750,
+            "created": "2023-05-22T08:51:06.159Z",
+            "modified": "2023-05-22T08:51:06.152Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"student_name\": \"Mistry Mohit A\",\n  \"student_mobile\": \"7036089593\",\n  \"student_address\": \"mdevennie9@wired.com\",\n  \"student_img\": \"http://dummyimage.com/241x100.png/ff4444/ffffff\",\n  \"course_id\": 6\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "b95844f6-2429-4d62-b758-a7fd3104c133",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "37abef74-f566-487d-8c6a-117b578e6b74",
+            "name": "update faculty",
+            "url": "http://127.0.0.1:8000/api/admin/faculty/update/14",
+            "method": "PATCH",
+            "sortNum": 53750,
+            "created": "2023-05-22T08:51:06.164Z",
+            "modified": "2023-05-22T08:51:06.152Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"faculty_name\": \"Karishma A Mistry\",\n  \"faculty_mobile\": \"1134757821\",\n  \"faculty_address\": \"70 Oxford Drive\",\n  \"course_id\": 7\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "cf341b03-803d-4273-a994-90e1b03d9c28",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "00857cc2-e4c6-464c-9365-ccda7d7d6731",
+            "name": "update question",
+            "url": "http://127.0.0.1:8000/api/faculty/question/update/10",
+            "method": "PATCH",
+            "sortNum": 53750,
+            "created": "2023-05-22T08:51:06.170Z",
+            "modified": "2023-05-22T11:49:22.479Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"question_text\": \"What Is Full Form Of QMO\",\n  \"rightAnswer\":3,\n  \"options\": [\n      {\n        \"option_id\": 21,\n        \"option_text\": \"Qd\"\n      },\n      {\n        \"option_id\": 22,\n        \"option_text\": \"Qw\"\n      },\n      {\n        \"option_id\": 23,\n        \"option_text\": \"qr\"\n      },{\n        \"option_id\": 24,\n        \"option_text\": \"qc\"\n      }\n         ],\n    \"subject_id\": 1,\n    \"course_id\":7\n}     ",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "4c5c5c49-7377-41e7-9fae-8486bf75fb18",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "871b0680-f780-4676-9ad3-e48f85cc88b6",
+            "name": "update subject",
+            "url": "http://127.0.0.1:8000/api/admin/subject/update/1",
+            "method": "PATCH",
+            "sortNum": 53750,
+            "created": "2023-05-22T08:51:06.175Z",
+            "modified": "2023-05-22T08:51:06.153Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"subject_name\": \"data structure 2\"\n}",
                 "form": []
             },
             "tests": []
@@ -267,11 +794,11 @@
             "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
             "containerId": "fbf19552-8a9b-45e5-989f-7207756d55bc",
             "name": "delete student",
-            "url": "http://127.0.0.1:8000/api/admin/student/delete/10",
+            "url": "http://127.0.0.1:8000/api/admin/student/delete/14",
             "method": "DELETE",
             "sortNum": 63750,
             "created": "2023-03-23T04:46:23.261Z",
-            "modified": "2023-03-23T05:01:49.000Z",
+            "modified": "2023-05-21T01:01:15.278Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -281,11 +808,151 @@
             "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
             "containerId": "9a0faf3c-631e-4de1-9326-ec7925d3e113",
             "name": "delete student",
-            "url": "http://127.0.0.1:8000/api/admin/faculty/delete/8",
+            "url": "http://127.0.0.1:8000/api/admin/faculty/delete/16",
             "method": "DELETE",
             "sortNum": 63750,
             "created": "2023-03-23T05:33:16.855Z",
-            "modified": "2023-03-23T05:54:32.083Z",
+            "modified": "2023-05-22T04:43:47.692Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "84ec81ab-cbde-4237-b037-b9566dbd0e63",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "5444d019-0933-46f2-b1e6-518fc1d0fa91",
+            "name": "delete course",
+            "url": "http://127.0.0.1:8000/api/admin/course/delete/13",
+            "method": "DELETE",
+            "sortNum": 63750,
+            "created": "2023-03-26T11:07:12.948Z",
+            "modified": "2023-05-21T10:02:00.683Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "5b48e69d-b49f-4ee7-a64a-e44d5c8324e3",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "a77fa5da-f7a1-4b0e-8a6b-46f0c9eec1d8",
+            "name": "delete subject",
+            "url": "http://127.0.0.1:8000/api/admin/subject/delete/10",
+            "method": "DELETE",
+            "sortNum": 63750,
+            "created": "2023-03-26T12:59:13.441Z",
+            "modified": "2023-05-22T01:27:09.256Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6e3fff0a-7f1d-4b1b-b2ca-bec598ab1795",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "76a71f3b-ac06-4e08-868d-444b54a9e9b0",
+            "name": "delete student",
+            "url": "http://127.0.0.1:8000/api/admin/student/delete/14",
+            "method": "DELETE",
+            "sortNum": 63750,
+            "created": "2023-05-22T08:51:06.160Z",
+            "modified": "2023-05-22T08:51:06.152Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b753e815-34c8-4bf1-a4e0-b9033442849d",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "37abef74-f566-487d-8c6a-117b578e6b74",
+            "name": "delete student",
+            "url": "http://127.0.0.1:8000/api/admin/faculty/delete/16",
+            "method": "DELETE",
+            "sortNum": 63750,
+            "created": "2023-05-22T08:51:06.165Z",
+            "modified": "2023-05-22T08:51:06.152Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "11fe0c74-7de4-4637-bd88-8751db92de30",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "00857cc2-e4c6-464c-9365-ccda7d7d6731",
+            "name": "delete question",
+            "url": "http://127.0.0.1:8000/api/faculty/question/delete/8",
+            "method": "DELETE",
+            "sortNum": 63750,
+            "created": "2023-05-22T08:51:06.171Z",
+            "modified": "2023-05-22T11:47:03.564Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "5d69809b-edd9-4cf9-aa35-f26820e90735",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "871b0680-f780-4676-9ad3-e48f85cc88b6",
+            "name": "delete subject",
+            "url": "http://127.0.0.1:8000/api/admin/subject/delete/10",
+            "method": "DELETE",
+            "sortNum": 63750,
+            "created": "2023-05-22T08:51:06.176Z",
+            "modified": "2023-05-22T08:51:06.153Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e734c892-9b83-4d07-9795-b79b748e713e",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "68297154-a5bb-4f25-b8cd-e7330d7788d6",
+            "name": "fetch data",
+            "url": "http://127.0.0.1:8000/api/admin",
+            "method": "POST",
+            "sortNum": 73750,
+            "created": "2023-05-22T05:53:52.873Z",
+            "modified": "2023-05-22T05:54:35.224Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "44a06fc0-8dd2-4c73-8bf0-3836f24aa01e",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "e5446cc3-f2ff-4e36-aecc-d4f5ccfc5ea8",
+            "name": "fetch data",
+            "url": "http://127.0.0.1:8000/api/admin",
+            "method": "POST",
+            "sortNum": 73750,
+            "created": "2023-05-22T08:51:06.177Z",
+            "modified": "2023-05-22T08:51:06.153Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "5602b1bc-10ef-4e6e-a0b2-74d97cfffdb0",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "8102f537-b272-40e9-992b-e1ff59e189fd",
+            "name": "fetch course",
+            "url": "http://127.0.0.1:8000/api/faculty/course/fetch/",
+            "method": "POST",
+            "sortNum": 83750,
+            "created": "2023-05-22T23:53:10.417Z",
+            "modified": "2023-05-22T23:53:22.302Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "85d4e7d9-9f2f-438f-a52c-80ada42962c4",
+            "colId": "4b7f40b3-53e4-43bd-9597-a6f7dd5043bf",
+            "containerId": "8102f537-b272-40e9-992b-e1ff59e189fd",
+            "name": "fetch course with id",
+            "url": "http://127.0.0.1:8000/api/faculty/course/fetch/7",
+            "method": "POST",
+            "sortNum": 93750,
+            "created": "2023-05-23T00:10:30.230Z",
+            "modified": "2023-05-23T00:10:36.032Z",
             "headers": [],
             "params": [],
             "tests": []
