@@ -36,6 +36,7 @@ Route::middleware('api-session')->group(
             Route::post('/signup', [Auth_User::class, "signup"]);
             Route::post('/logout', [Auth_User::class, "logout"]);
             Route::post('/isUserLogin', [Auth_User::class, "isUserLogin"]);
+            Route::post('/session', [Auth_User::class, "fetchSessionData"]);
         });
 
 
@@ -86,6 +87,12 @@ Route::middleware('api-session')->group(
             });
             Route::prefix('course')->group(function () {
                 Route::post('/fetch/{id?}', [Faculty::class, "fetchCourseData"]);
+            });
+            Route::prefix('exam')->group(function () {
+                Route::post('/fetch/{id?}', [Faculty::class, "fetchScheduleExamData"]);
+                Route::post('/add', [Faculty::class, "addScheduleExamData"]);
+                Route::patch('/update/{id}', [Faculty::class, "updateScheduleExamData"]);
+                Route::delete('/delete/{id}', [Faculty::class, "deleteScheduleExamData"]);
             });
         });
     }

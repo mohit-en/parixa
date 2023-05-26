@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import admin, faculty, student route
 import AdminRoute from "./Admin";
 import FacultyRoute from "./Faculty";
-// import StudentRoute from "./Student";
+import StudentRoute from "./Student";
 
 // home route
 import HomeRoute from "./Home";
@@ -24,7 +24,7 @@ export default function IndexRoute() {
 
         <Route path="/admin/*" element={<AdminRoute />}></Route>
         <Route path="/faculty/*" element={<FacultyRoute />}></Route>
-        {/*<Route path="/student/*" element={<StudentRoute />}></Route> */}
+        <Route path="/student/*" element={<StudentRoute />}></Route>
         <Route path="*" element={<Page404 />}></Route>
       </Routes>
     </BrowserRouter>

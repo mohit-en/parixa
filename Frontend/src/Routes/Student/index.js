@@ -5,7 +5,7 @@ import Axios from "axios";
 import { StatusAlertService } from "react-status-alert";
 
 // import admin view
-import AdminScreenView from "../../Views/Admin";
+import StudentScreenView from "../../Views/Student";
 
 export default function AdminRoute() {
   const user = { user_id: 1, user_role_name: "student" };
@@ -14,7 +14,7 @@ export default function AdminRoute() {
     <>
       {user.user_id && user.user_role_name === "student" ? (
         <Routes>
-          <Route path="*" element={<AdminScreenView />} />
+          <Route path="*" element={<StudentScreenView />} />
         </Routes>
       ) : (
         <Navigate to={"/"} replace={true} />

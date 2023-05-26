@@ -108,6 +108,22 @@ class Auth_User extends Controller
             'status' => 'success'
         ], 200);
     }
+    public function fetchSessionData(Request $request)
+    {
+        try {
+            return response()->json([
+                'body' => session()->all(),
+                'msg' => "done",
+                'status' => 'success'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'body' => [],
+                'msg' => "Not Found",
+                'status' => 'Not Found'
+            ], 404);
+        }
+    }
 }
 
 // 1) => data validation check
