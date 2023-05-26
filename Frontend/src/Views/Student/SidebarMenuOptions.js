@@ -8,6 +8,7 @@ import Students from "./Screens/Students";
 import Faculty from "./Screens/Faculty";
 import QuestionsScreen from "./Screens/Questions";
 import Subject from "./Screens/Subject";
+import ScheduleExamScreen from "./Screens/Exam";
 // import Approval from "./Screens/Approval";
 // import Profile from "./Screens/Profile";
 
@@ -21,41 +22,41 @@ const AllRoutes = [
     isSideMenuComponent: true,
   },
   {
-    label: "questions",
+    label: "Exam",
     icon: () => (
       <FontAwesomeIcon icon={["fa", "book-reader"]} color={"white"} />
     ),
-    to: "/student/questions",
-    route: "/questions",
-    componet: <QuestionsScreen />,
+    to: "/student/exam",
+    route: "/Exam",
+    componet: <ScheduleExamScreen />,
     isSideMenuComponent: true,
   },
-  {
-    label: "Subject",
-    icon: () => <FontAwesomeIcon icon={["fa", "book"]} color={"white"} />,
-    to: "/student/Subject",
-    route: "/Subject",
-    componet: <Subject />,
-    isSideMenuComponent: true,
-  },
-  {
-    label: "Student",
-    icon: () => <FontAwesomeIcon icon={["fa", "users"]} color={"white"} />,
-    to: "/student/students",
-    route: "/students",
-    componet: <Students />,
-    isSideMenuComponent: true,
-  },
-  {
-    label: "Faculty",
-    icon: () => (
-      <FontAwesomeIcon icon={["fa", "chalkboard-teacher"]} color={"white"} />
-    ),
-    to: "/faculty/facultys",
-    route: "/facultys",
-    componet: <Faculty />,
-    isSideMenuComponent: true,
-  },
+  // {
+  //   label: "Subject",
+  //   icon: () => <FontAwesomeIcon icon={["fa", "book"]} color={"white"} />,
+  //   to: "/student/Subject",
+  //   route: "/Subject",
+  //   componet: <Subject />,
+  //   isSideMenuComponent: true,
+  // },
+  // {
+  //   label: "Student",
+  //   icon: () => <FontAwesomeIcon icon={["fa", "users"]} color={"white"} />,
+  //   to: "/student/students",
+  //   route: "/students",
+  //   componet: <Students />,
+  //   isSideMenuComponent: true,
+  // },
+  // {
+  //   label: "Faculty",
+  //   icon: () => (
+  //     <FontAwesomeIcon icon={["fa", "chalkboard-teacher"]} color={"white"} />
+  //   ),
+  //   to: "/faculty/facultys",
+  //   route: "/facultys",
+  //   componet: <Faculty />,
+  //   isSideMenuComponent: true,
+  // },
 
   // {
   //   label: "Users",

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Auth_User;
 use App\Http\Controllers\Faculty;
+use App\Http\Controllers\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,7 +40,6 @@ Route::middleware('api-session')->group(
             Route::post('/session', [Auth_User::class, "fetchSessionData"]);
         });
 
-
         Route::prefix('admin')->middleware(['admin-auth'])->group(function () {
 
             Route::post('/', [Admin::class, "dashboard"]);
@@ -73,8 +73,6 @@ Route::middleware('api-session')->group(
             });
         });
 
-
-
         Route::prefix('faculty')->middleware(['faculty-auth'])->group(function () {
 
             Route::post('/', [Faculty::class, "dashboard"]);
@@ -93,6 +91,15 @@ Route::middleware('api-session')->group(
                 Route::post('/add', [Faculty::class, "addScheduleExamData"]);
                 Route::patch('/update/{id}', [Faculty::class, "updateScheduleExamData"]);
                 Route::delete('/delete/{id}', [Faculty::class, "deleteScheduleExamData"]);
+            });
+        });
+
+        Route::prefix('student')->middleware(['student-auth'])->group(function () {
+
+            Route::post('/', [Student::class, "dashboard"]);
+
+            Route::prefix('exam')->group(function () {
+                Route::post('/fetch/{id?}', [Student::class, "fetchStudentScheduleExamData"]);
             });
         });
     }

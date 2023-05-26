@@ -99,7 +99,7 @@ class Faculty extends Controller
     {
         // Validation on data
         $data_validation = validator::make($request->all(), [
-            "question_text" => ["required", "max:100", "string"],
+            "question_text" => ["required", "max:1000", "string"],
             "rightAnswer" => ["required", "numeric"],
             "subject_id" => ["required", "numeric"],
             "course_id" => ["required", "numeric"],
