@@ -36,7 +36,7 @@ class Auth_User extends Controller
                 if ($data->user_role == "student") {
 
                     $student_data = DB::table("student")
-                        ->select("student_id")
+                        ->select(["student_id", "course_id"])
                         ->where("login_user_id", "=", $data->id)
                         ->first();
                     $request->session()->put([
@@ -44,11 +44,12 @@ class Auth_User extends Controller
                         'login_user_id' => $data->id,
                         'user_email' => $data->user_email,
                         'user_role' => $data->user_role,
-                        'user_id' => $student_data->student_id
+                        'user_id' => $student_data->student_id,
+                        'course_id' => $student_data->course_id
                     ]);
                 } else if ($data->user_role == "faculty") {
                     $faculty_data = DB::table("faculty")
-                        ->select("faculty_id")
+                        ->select(["faculty_id", "course_id"])
                         ->where("login_user_id", "=", $data->id)
                         ->first();
                     $request->session()->put([
@@ -56,7 +57,8 @@ class Auth_User extends Controller
                         'login_user_id' => $data->id,
                         'user_email' => $data->user_email,
                         'user_role' => $data->user_role,
-                        'user_id' => $faculty_data->faculty_id
+                        'user_id' => $faculty_data->faculty_id,
+                        'course_id' => $faculty_data->course_id
                     ]);
                 } else {
                     $request->session()->put([

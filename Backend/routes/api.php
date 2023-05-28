@@ -92,6 +92,17 @@ Route::middleware('api-session')->group(
                 Route::patch('/update/{id}', [Faculty::class, "updateScheduleExamData"]);
                 Route::delete('/delete/{id}', [Faculty::class, "deleteScheduleExamData"]);
             });
+
+            Route::prefix('doneexam')->group(function () {
+                Route::post('/fetch/{id?}', [Faculty::class, "fetchDoneExamData"]);
+            });
+            Route::prefix('exammarks')->group(function () {
+                Route::post('/fetch/{id?}', [Faculty::class, "fetchExamMarksData"]);
+            });
+
+            Route::prefix('student')->group(function () {
+                Route::post('/fetch/{id?}', [Faculty::class, "fetchStudentData"]);
+            });
         });
 
         Route::prefix('student')->middleware(['student-auth'])->group(function () {
@@ -100,6 +111,17 @@ Route::middleware('api-session')->group(
 
             Route::prefix('exam')->group(function () {
                 Route::post('/fetch/{id?}', [Student::class, "fetchStudentScheduleExamData"]);
+            });
+            Route::prefix('todayexam')->group(function () {
+                Route::post('/fetch/{id?}', [Student::class, "fetchStudentTodayExamData"]);
+            });
+            Route::prefix('doneexam')->group(function () {
+                Route::post('/fetch/{id?}', [Student::class, "fetchStudentDoneExamData"]);
+            });
+
+            Route::prefix('examquestion')->group(function () {
+                Route::post('/fetch/{id}', [Student::class, "fetchExamQuestionData"]);
+                Route::post('/add/', [Student::class, "addExamMarksData"]);
             });
         });
     }

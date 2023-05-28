@@ -44,7 +44,7 @@ export default function SubjectScreen() {
   //
   const toggle = () => {
     setModal(!modal);
-    if (modal == true && isEdit) {
+    if (modal && isEdit) {
       setFormData({
         subject_id: "",
         subject_name: "",

@@ -20,6 +20,7 @@ import {
 import Axios, { formToJSON } from "axios";
 import ReactLoading from "react-spinners/CircleLoader";
 import { StatusAlertService } from "react-status-alert";
+import { Link } from "react-router-dom";
 
 // data table
 import "datatables.net-dt/js/dataTables.dataTables";
@@ -74,7 +75,7 @@ export default function ScheduleExamScreen() {
       // rest login api here
 
       let reqOptions = {
-        url: "/api/student/exam/fetch/",
+        url: "/api/student/todayexam/fetch/",
         method: "POST",
         headers: {
           Accept: "*/*",
@@ -93,22 +94,6 @@ export default function ScheduleExamScreen() {
     }
   };
 
-  const remainingExamTime = (ls) => {
-    // console.log(ls);
-    const examDate = new Date(`${ls.date}T${ls.time}`);
-    // const examDate = new Date("2023-06-19T14:47:00");
-    const currentTime = new Date().getTime();
-
-    const timeDiff = examDate.getTime() - currentTime;
-    // console.log(timeDiff);
-    const daysRemaining = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    const hoursRemaining = Math.floor(
-      (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-
-    return `${daysRemaining} days and ${hoursRemaining} hours`;
-  };
-
   return (
     <Fragment>
       <Row>
@@ -121,7 +106,7 @@ export default function ScheduleExamScreen() {
             ) : (
               <div>
                 <div className="w-100 d-flex justify-content-between align-items-center my-2 text-dark">
-                  <h4>Future Scheduled Exam</h4>
+                  <h4>Today's Exam</h4>
                 </div>
                 <table
                   className="table table-bordered text-center"
@@ -136,7 +121,7 @@ export default function ScheduleExamScreen() {
                       <th>Date</th>
                       <th>Strat | End time</th>
                       <th>Faculty</th>
-                      <th>Remaining Time</th>
+                      <th>Join Exam</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -151,12 +136,14 @@ export default function ScheduleExamScreen() {
                           </th>
                           <th>{ls.faculty_name}</th>
                           <th>
-                            <i>
-                              {remainingExamTime({
-                                date: ls.exam_date,
-                                time: ls.start_time,
-                              })}
-                            </i>
+                            {/* <button className="btn btn-primary">Join</button> */}
+                            <Link
+                              className="btn btn-primary"
+                              to={`/liveexam/${ls.exam_id}`}
+                              target="_blank"
+                            >
+                              Join
+                            </Link>
                           </th>
                         </tr>
                       );

@@ -7,25 +7,37 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-
-
 class Faculty extends Controller
 {
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        $allCountOfStudent = DB::table("student")->count();
-        $allCountOfFaculty = DB::table("faculty")->count();
-        $allCountOfCourse = DB::table("course")->count();
+        try {
+            $course = DB::table("course")
+                ->whereIn("course_id", function ($query) use ($request) {
+                    $query->select("course_id")
+                        ->from("faculty")
+                        ->where("faculty_id", "=", $request->session()->get("user_id"));
+                })
+                ->select(["course_id"])
+                ->first();
 
-        return response()->json([
-            'body' => [
-                'totalQuestions' => $allCountOfStudent,
-                'totalFaculty' => $allCountOfFaculty,
-                'totalCourse' => $allCountOfCourse
-            ],
-            'msg' => "Welcome Admin",
-            'status' => 'success'
-        ], 200);
+            $allCountOfStudent = DB::table("student")
+                ->where("course_id", "=", $course->course_id)
+                ->count();
+            $allCountOfFaculty = DB::table("faculty")->count();
+            $allCountOfCourse = DB::table("course")->count();
+
+            return response()->json([
+                'body' => [
+                    'totalQuestions' => $allCountOfStudent,
+                    'totalFaculty' => $allCountOfFaculty,
+                    'totalCourse' => $allCountOfCourse
+                ],
+                'msg' => "Welcome Admin",
+                'status' => 'success'
+            ], 200);
+        } catch (Exception $th) {
+        }
     }
     /**
      * faculty related api's
@@ -35,10 +47,19 @@ class Faculty extends Controller
     {
         try {
             if ($id == 0) {
+                $course = DB::table("course")
+                    ->whereIn("course_id", function ($query) use ($request) {
+                        $query->select("course_id")
+                            ->from("faculty")
+                            ->where("faculty_id", "=", $request->session()->get("user_id"));
+                    })
+                    ->select(["course_id"])
+                    ->first();
                 // $all_question_data = DB::table("questions")->select()->get();
                 $all_question_data = DB::table("questions")
                     ->join("subject", "questions.subject_id", "=", "subject.subject_id")
                     ->join("course", "questions.course_id", "=", "course.course_id")
+                    ->where("course.course_id", "=", $course->course_id)
                     ->select(
                         "questions.question_id",
                         "questions.question_text",
@@ -51,6 +72,7 @@ class Faculty extends Controller
 
                 return response()->json([
                     'body' => $all_question_data,
+                    'course' => $course,
                     'msg' => "All Questions records",
                     'status' => 'success'
                 ], 200);
@@ -278,6 +300,8 @@ class Faculty extends Controller
                     ->join("course", "exam.course_id", "=", "course.course_id")
                     ->join("subject", "exam.subject_id", "=", "subject.subject_id")
                     ->join("faculty", "exam.faculty_id", "=", "faculty.faculty_id")
+                    ->where('exam.faculty_id', '=', $request->session()->get("user_id"))
+                    ->where('exam.exam_date', '>=', date('Y-m-d'))
                     ->select(
                         [
                             "exam.exam_id",
@@ -475,6 +499,109 @@ class Faculty extends Controller
                 'body' => [],
                 'msg' => $ex->getMessage(),
                 'status' => 'fail to delete'
+            ], 400);
+        }
+    }
+
+    // this function is for Fetch student data
+    public function fetchStudentData(Request $request)
+    {
+        try {
+
+            // fetch specific student data based on id
+            $student = DB::table("student")
+                ->leftJoin('users', "users.id", "=", "student.login_user_id")
+                ->select(["users.user_email", "student.*"])
+                ->where("student.course_id", "=", $request->session()->get('course_id'))
+                ->get();
+
+            // if we get specific student record then send response
+            return response()->json([
+                'body' => $student,
+                'msg' => "Specific student data",
+                'status' => 'success'
+            ], 200);
+        } catch (Exception $ex) {
+            return response()->json([
+                'body' => [],
+                'msg' => $ex->getMessage(),
+                'status' => 'fail'
+            ], 400);
+        }
+    }
+
+    public function fetchDoneExamData(Request $request, $id = 0)
+    {
+        try {
+            $all_question_data = DB::table("exam")
+                ->join("course", "exam.course_id", "=", "course.course_id")
+                ->join("subject", "exam.subject_id", "=", "subject.subject_id")
+                ->join("faculty", "exam.faculty_id", "=", "faculty.faculty_id")
+                ->where('exam.faculty_id', '=', $request->session()->get("user_id"))
+                ->where('exam.exam_date', '<', date('Y-m-d'))
+                ->select(
+                    [
+                        "exam.exam_id",
+                        "exam.exam_date",
+                        "exam.start_time",
+                        "exam.end_time",
+                        "exam.questions_limit",
+                        "exam.course_id",
+                        "course.course_name",
+                        "exam.subject_id",
+                        "subject.subject_name",
+                        "exam.faculty_id",
+                        "faculty.faculty_name",
+                        "exam.created_at",
+                        "exam.updated_at"
+                    ]
+                )
+                ->get();
+
+            return response()->json([
+                'body' => $all_question_data,
+                'msg' => "All Questions records",
+                'status' => 'success'
+            ], 200);
+        } catch (Exception $ex) {
+            return response()->json([
+                'body' => [],
+                'msg' => $ex->getMessage(),
+                'status' => 'fail'
+            ], 400);
+        }
+    }
+
+    public function fetchExamMarksData(Request $request, $id = 0)
+    {
+        try {
+
+            $examDetails = DB::table("exam")->where('exam_id', '=', $id)->select(['questions_limit', 'exam_date', 'start_time', 'end_time'])->first();
+
+            $studentsList = DB::table("student_marks")
+                ->join("student", "student.student_id", "=", "student_marks.student_id")
+                ->where('exam_id', '=', $id)
+                ->select(
+                    [
+                        "student.student_name",
+                        "student_marks.marks_obtained",
+                    ]
+                )
+                ->get();
+
+            return response()->json([
+                'body' => [
+                    'exam' => $examDetails,
+                    'studentsResult' => $studentsList
+                ],
+                'msg' => "All Questions records",
+                'status' => 'success'
+            ], 200);
+        } catch (Exception $ex) {
+            return response()->json([
+                'body' => [],
+                'msg' => $ex->getMessage(),
+                'status' => 'fail'
             ], 400);
         }
     }

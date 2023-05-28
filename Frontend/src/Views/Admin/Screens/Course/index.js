@@ -40,6 +40,9 @@ export default function CourseScreen() {
   //
   const toggle = () => {
     setModal(!modal);
+    if (modal && isEdit) {
+      setFormData({ course_name: "" });
+    }
   };
 
   //

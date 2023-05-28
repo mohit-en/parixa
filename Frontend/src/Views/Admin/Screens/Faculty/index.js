@@ -47,7 +47,7 @@ export default function FacultyScreen() {
   //
   const toggle = () => {
     setModal(!modal);
-    if (modal == true && isEdit) {
+    if (modal && isEdit) {
       setFormData({
         faculty_name: "",
         faculty_mobile: "",

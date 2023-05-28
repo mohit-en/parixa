@@ -58,7 +58,7 @@ const MyRoutes = () => {
 
               {/*  */}
               {/* add route only above this line */}
-              <Route path="*" element={<Navigate to={"/admin"} />} />
+              <Route path="*" element={<Navigate to={"/faculty"} />} />
             </Routes>
           </motion.div>
         </LeftSidebar>

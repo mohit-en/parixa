@@ -397,6 +397,13 @@ class Admin extends Controller
     {
         try {
             if (is_numeric($id) && $id > 0) {
+                $loginId = DB::table("faculty")
+                    ->select("login_user_id")
+                    ->where("faculty_id", "=", $id)
+                    ->first();
+                $deleteFromUsersTable = DB::table("users")
+                    ->where("id", "=", $loginId->login_user_id)
+                    ->delete();
                 $data = DB::table("faculty")->where("faculty_id", "=", $id)->delete();
                 if ($data) {
                     return response()->json([

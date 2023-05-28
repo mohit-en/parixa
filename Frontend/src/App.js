@@ -1,4 +1,5 @@
 import React from "react";
+import "./App.css";
 
 // src/index.js
 import { PersistGate } from "redux-persist/integration/react";

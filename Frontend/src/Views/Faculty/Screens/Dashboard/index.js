@@ -10,8 +10,8 @@ export default function LivePreviewExample() {
   const [isLoading, setIsLoading] = useState(true);
   const [allData, setAllData] = useState({
     totalStudents: 0,
-    totalFaculty: 0,
-    totalCourse: 0,
+    totalMCQs: 0,
+    totalScheduledExam: 0,
   });
 
   //

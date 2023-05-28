@@ -7,7 +7,7 @@ import Dashboard from "./Screens/Dashboard";
 import Students from "./Screens/Students";
 import Faculty from "./Screens/Faculty";
 import QuestionsScreen from "./Screens/Questions";
-import Subject from "./Screens/ScheduleExam";
+import DoneExam from "./Screens/DoneExam";
 import ScheduleExamScreen from "./Screens/ScheduleExam";
 // import Approval from "./Screens/Approval";
 // import Profile from "./Screens/Profile";
@@ -39,14 +39,24 @@ const AllRoutes = [
     componet: <ScheduleExamScreen />,
     isSideMenuComponent: true,
   },
-  // {
-  //   label: "Student",
-  //   icon: () => <FontAwesomeIcon icon={["fa", "users"]} color={"white"} />,
-  //   to: "/faculty/students",
-  //   route: "/students",
-  //   componet: <Students />,
-  //   isSideMenuComponent: true,
-  // },
+  {
+    label: "Student",
+    icon: () => <FontAwesomeIcon icon={["fa", "users"]} color={"white"} />,
+    to: "/faculty/students",
+    route: "/students",
+    componet: <Students />,
+    isSideMenuComponent: true,
+  },
+  {
+    label: "Done Exam",
+    icon: () => (
+      <FontAwesomeIcon icon={["fa", "calendar-check"]} color={"white"} />
+    ),
+    to: "/faculty/doneexam",
+    route: "/doneexam",
+    componet: <DoneExam />,
+    isSideMenuComponent: true,
+  },
   // {
   //   label: "Faculty",
   //   icon: () => (

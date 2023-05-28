@@ -9,7 +9,7 @@ import StudentRoute from "./Student";
 // home route
 import HomeRoute from "./Home";
 import LoginRoute from "../Views/Other/Login/Login";
-// import LogoutRoute from "../Views/Other/Logout/logout";
+import LiveExamRoute from "../Views/Other/LiveExam";
 
 // import 404 page
 import Page404 from "../Views/Other/PageNotFound/PageNotFound";
@@ -20,7 +20,8 @@ export default function IndexRoute() {
       <Routes>
         <Route path="/" element={<HomeRoute />}></Route>
         <Route path="/login" element={<LoginRoute />}></Route>
-        {/*<Route path="/logout" element={<LogoutRoute />}></Route> */}
+
+        <Route path="/liveexam/:examId" element={<LiveExamRoute />}></Route>
 
         <Route path="/admin/*" element={<AdminRoute />}></Route>
         <Route path="/faculty/*" element={<FacultyRoute />}></Route>

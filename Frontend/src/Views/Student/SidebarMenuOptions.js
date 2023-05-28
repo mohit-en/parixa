@@ -4,12 +4,10 @@ import { Route } from "react-router-dom";
 
 //
 import Dashboard from "./Screens/Dashboard";
-import Students from "./Screens/Students";
-import Faculty from "./Screens/Faculty";
-import QuestionsScreen from "./Screens/Questions";
-import Subject from "./Screens/Subject";
-import ScheduleExamScreen from "./Screens/Exam";
-// import Approval from "./Screens/Approval";
+import Exam from "./Screens/Exam";
+import ScheduleExamScreen from "./Screens/ScheduleExam";
+import DoneExamScreen from "./Screens/DoneExam";
+
 // import Profile from "./Screens/Profile";
 
 const AllRoutes = [
@@ -22,15 +20,36 @@ const AllRoutes = [
     isSideMenuComponent: true,
   },
   {
-    label: "Exam",
+    label: "Today's Exam",
     icon: () => (
       <FontAwesomeIcon icon={["fa", "book-reader"]} color={"white"} />
     ),
     to: "/student/exam",
-    route: "/Exam",
+    route: "/exam",
+    componet: <Exam />,
+    isSideMenuComponent: true,
+  },
+  {
+    label: "Shedule Exam",
+    icon: () => (
+      <FontAwesomeIcon icon={["fa", "clipboard-list"]} color={"white"} />
+    ),
+    to: "/student/sheduleexam",
+    route: "/sheduleexam",
     componet: <ScheduleExamScreen />,
     isSideMenuComponent: true,
   },
+  {
+    label: "Done Exam",
+    icon: () => (
+      <FontAwesomeIcon icon={["fa", "calendar-check"]} color={"white"} />
+    ),
+    to: "/student/doneexam",
+    route: "/doneexam",
+    componet: <DoneExamScreen />,
+    isSideMenuComponent: true,
+  },
+
   // {
   //   label: "Subject",
   //   icon: () => <FontAwesomeIcon icon={["fa", "book"]} color={"white"} />,
