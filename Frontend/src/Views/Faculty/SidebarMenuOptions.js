@@ -57,42 +57,6 @@ const AllRoutes = [
     componet: <DoneExam />,
     isSideMenuComponent: true,
   },
-  // {
-  //   label: "Faculty",
-  //   icon: () => (
-  //     <FontAwesomeIcon icon={["fa", "chalkboard-teacher"]} color={"white"} />
-  //   ),
-  //   to: "/faculty/facultys",
-  //   route: "/facultys",
-  //   componet: <Faculty />,
-  //   isSideMenuComponent: true,
-  // },
-
-  // {
-  //   label: "Users",
-  //   icon: () => <FontAwesomeIcon icon={["fa", "users"]} color={"white"} />,
-  // building
-  //   to: "/admin/users",
-  //   route: "/users",
-  //   componet: <Users />,
-  //   isSideMenuComponent: true,
-  // },
-  // {
-  //   label: "Approval",
-  //   icon: () => <FontAwesomeIcon icon={["fa", "user-check"]} color={"white"} />,
-  //   to: "/admin/approval",
-  //   route: "/approval",
-  //   componet: <Approval />,
-  //   isSideMenuComponent: true,
-  // },
-  // {
-  //   label: "Profile",
-  //   icon: () => <FontAwesomeIcon icon={["fa", "user"]} color={"white"} />,
-  //   to: "/admin/profile",
-  //   route: "/profile",
-  //   componet: <Profile />,
-  //   isSideMenuComponent: true,
-  // },
 ];
 
 const SidebarMenuContent = AllRoutes.filter((ls) => {

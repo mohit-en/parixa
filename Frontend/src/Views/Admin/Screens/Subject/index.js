@@ -287,7 +287,7 @@ export default function SubjectScreen() {
             ) : (
               <div>
                 <div className="w-100 d-flex justify-content-between align-items-center my-2 text-dark">
-                  <h4>Students Data</h4>
+                  <h4>Subject Data</h4>
                   <button
                     className="btn btn-primary"
                     onClick={() => {
