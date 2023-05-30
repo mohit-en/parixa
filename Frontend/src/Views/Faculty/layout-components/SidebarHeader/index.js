@@ -11,7 +11,7 @@ class SidebarHeader extends Component {
         <div className="app-sidebar--header">
           <div className="nav-logo">
             <Link
-              to="/admin/"
+              to="/faculty/"
               title="Bamburgh React Admin Dashboard with Reactstrap Free"
             >
               <img

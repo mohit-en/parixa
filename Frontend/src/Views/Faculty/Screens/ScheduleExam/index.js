@@ -379,7 +379,7 @@ export default function ScheduleExamScreen() {
                 {/*  */}
                 <Modal isOpen={modal} toggle={toggle} centered>
                   <ModalHeader toggle={toggle}>
-                    {isEdit ? "Edit Question" : "Add New Question"}
+                    {isEdit ? "Edit Exam" : "Add New Exam"}
                   </ModalHeader>
                   <ModalBody>
                     {/*  */}

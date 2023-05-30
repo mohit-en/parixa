@@ -11,6 +11,7 @@ import { useState } from "react";
 
 export default function Home() {
   var [isLogged, setisLogged] = useState(false);
+  const [userRole, setUserRole] = useState("");
 
   const handleIsUserAldradyLogin = async () => {
     try {
@@ -18,6 +19,12 @@ export default function Home() {
       console.log(res.data.body.isUserLogin);
       if (res.data.body.isUserLogin) {
         setisLogged(true);
+        let reqOptions = {
+          url: "api/auth/session",
+          method: "POST",
+        };
+        let response = await Axios.request(reqOptions);
+        setUserRole(response.data.body.user_role);
       }
     } catch (err) {
       console.log(err.response.data);
@@ -41,7 +48,7 @@ export default function Home() {
           </a>
           {/* .navbar */}
 
-          <Link to={"/login"}>
+          <Link to={isLogged == "" ? "/login" : `/${userRole}`}>
             <button className="btn-getstarted scrollto">
               {isLogged ? "Dashboard" : "Login"}
             </button>
@@ -67,107 +74,10 @@ export default function Home() {
           </p>
           <div className="d-flex">
             <button className="btn-get-started scrollto">Get Started</button>
-            <a
-              href="https://www.youtube.com/watch?v=LXb3EKWsInQ"
-              className="glightbox btn-watch-video d-flex align-items-center"
-            >
-              <i className="bi bi-play-circle" />
-              <span>Watch Video</span>
-            </a>
           </div>
         </div>
       </section>
-      <main id="main">
-        {/* ======= Featured Services Section ======= */}
-        <section id="featured-services" className="featured-services">
-          <div className="container">
-            <div className="row gy-4">
-              <div className="col-xl-3 col-md-6 d-flex" data-aos="zoom-out">
-                <div className="service-item position-relative">
-                  <div className="icon">
-                    <i className="bi bi-activity icon" />
-                  </div>
-                  <h4>
-                    <a href className="stretched-link">
-                      Batter Performance
-                    </a>
-                  </h4>
-                  <p>
-                    With the use of this app you can Visulize in batter way of
-                    your performance and track your marks.
-                  </p>
-                </div>
-              </div>
-              {/* End Service Item */}
-              <div
-                className="col-xl-3 col-md-6 d-flex"
-                data-aos="zoom-out"
-                data-aos-delay={200}
-              >
-                <div className="service-item position-relative">
-                  <div className="icon">
-                    <i className="bi bi-bounding-box-circles icon" />
-                  </div>
-                  <h4>
-                    <a href className="stretched-link">
-                      Sed ut perspici
-                    </a>
-                  </h4>
-                  <p>
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore
-                  </p>
-                </div>
-              </div>
-              {/* End Service Item */}
-              <div
-                className="col-xl-3 col-md-6 d-flex"
-                data-aos="zoom-out"
-                data-aos-delay={400}
-              >
-                <div className="service-item position-relative">
-                  <div className="icon">
-                    <i className="bi bi-calendar4-week icon" />
-                  </div>
-                  <h4>
-                    <a href className="stretched-link">
-                      Magni Dolores
-                    </a>
-                  </h4>
-                  <p>
-                    Excepteur sint occaecat cupidatat non proident, sunt in
-                    culpa qui officia
-                  </p>
-                </div>
-              </div>
-              {/* End Service Item */}
-              <div
-                className="col-xl-3 col-md-6 d-flex"
-                data-aos="zoom-out"
-                data-aos-delay={600}
-              >
-                <div className="service-item position-relative">
-                  <div className="icon">
-                    <i className="bi bi-broadcast icon" />
-                  </div>
-                  <h4>
-                    <a href className="stretched-link">
-                      Nemo Enim
-                    </a>
-                  </h4>
-                  <p>
-                    At vero eos et accusamus et iusto odio dignissimos ducimus
-                    qui blanditiis
-                  </p>
-                </div>
-              </div>
-              {/* End Service Item */}
-            </div>
-          </div>
-        </section>
-        {/* End Featured Services Section */}
-      </main>
-      {/* End #main */}
+
       {/* ======= Footer ======= */}
       <footer id="footer" className="footer">
         <div className="footer-legal text-center">

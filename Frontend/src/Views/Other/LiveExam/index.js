@@ -111,10 +111,6 @@ export default function LiveExamScreen() {
 
     setQuestionList([]);
 
-    setTimeout(() => {
-      window.close();
-    }, 10000);
-
     try {
       // rest login api here
 
@@ -138,6 +134,10 @@ export default function LiveExamScreen() {
       console.log("====================================");
       console.log(error.response.data.msg);
       console.log("====================================");
+    } finally {
+      setTimeout(() => {
+        window.close();
+      }, 10000);
     }
   };
 
@@ -175,7 +175,6 @@ export default function LiveExamScreen() {
                       <div className="d-flex justify-content-between gap-md-3">
                         <h5 className="mb-2 fs-normal lh-base">
                           {questionList[questionIndex]?.question_text}
-                          question
                         </h5>
                         <h5
                           style={{

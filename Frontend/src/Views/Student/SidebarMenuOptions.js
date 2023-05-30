@@ -10,20 +10,12 @@ import DoneExamScreen from "./Screens/DoneExam";
 
 const AllRoutes = [
   {
-    label: "Dashboard",
-    icon: () => <FontAwesomeIcon icon={["fa", "table"]} color={"white"} />,
-    to: "/student",
-    route: "/",
-    componet: <Dashboard />,
-    isSideMenuComponent: true,
-  },
-  {
     label: "Today's Exam",
     icon: () => (
       <FontAwesomeIcon icon={["fa", "book-reader"]} color={"white"} />
     ),
     to: "/student/exam",
-    route: "/exam",
+    route: "/",
     componet: <Exam />,
     isSideMenuComponent: true,
   },

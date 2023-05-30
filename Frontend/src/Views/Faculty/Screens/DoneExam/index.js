@@ -118,16 +118,7 @@ export default function ScheduleExamScreen() {
             ) : (
               <div>
                 <div className="w-100 d-flex justify-content-between align-items-center my-2 text-dark">
-                  <h4>Schedules Data</h4>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => {
-                      setModal(true);
-                      setIsEdit(false);
-                    }}
-                  >
-                    + Add New
-                  </button>
+                  <h4>Exam Done</h4>
                 </div>
                 <table
                   className="table table-bordered text-center"
@@ -170,9 +161,7 @@ export default function ScheduleExamScreen() {
 
                 {/*  */}
                 <Modal isOpen={modal} toggle={toggle} centered>
-                  <ModalHeader toggle={toggle}>
-                    {isEdit ? "Edit Question" : "Add New Question"}
-                  </ModalHeader>
+                  <ModalHeader toggle={toggle}>Result Report</ModalHeader>
                   <ModalBody>
                     {/*  */}
 

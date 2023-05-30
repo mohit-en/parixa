@@ -21,19 +21,19 @@ class Faculty extends Controller
                 ->select(["course_id"])
                 ->first();
 
-            $allCountOfStudent = DB::table("student")
+            $totalMCQs = DB::table("questions")
                 ->where("course_id", "=", $course->course_id)
                 ->count();
-            $allCountOfFaculty = DB::table("faculty")->count();
-            $allCountOfCourse = DB::table("course")->count();
+            $totalScheduleExam = DB::table("exam")
+                ->where("course_id", "=", $course->course_id)
+                ->count();
 
             return response()->json([
                 'body' => [
-                    'totalQuestions' => $allCountOfStudent,
-                    'totalFaculty' => $allCountOfFaculty,
-                    'totalCourse' => $allCountOfCourse
+                    'totalQuestions' => $totalMCQs,
+                    'totalScheduleExam' => $totalScheduleExam
                 ],
-                'msg' => "Welcome Admin",
+                'msg' => "Welcome Faculty",
                 'status' => 'success'
             ], 200);
         } catch (Exception $th) {

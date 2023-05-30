@@ -8,11 +8,7 @@ import CustomLoading from "../../components/Loading";
 
 export default function LivePreviewExample() {
   const [isLoading, setIsLoading] = useState(true);
-  const [allData, setAllData] = useState({
-    totalStudents: 0,
-    totalMCQs: 0,
-    totalScheduledExam: 0,
-  });
+  const [allData, setAllData] = useState();
 
   //
   useEffect(() => {
@@ -57,10 +53,10 @@ export default function LivePreviewExample() {
                   <div className="d-flex align-items-start my-3">
                     <div className="font-weight-bold">
                       <small className="text-white-50 d-block mb-1 text-uppercase">
-                        Total MCQS
+                        Total Questions
                       </small>
                       <span className="font-size-xxl mt-1">
-                        {allData.totalStudents}
+                        {allData.totalQuestions}
                       </span>
                     </div>
                     <div className="ml-auto">
@@ -75,30 +71,7 @@ export default function LivePreviewExample() {
                 </CardBody>
               </Card>
             </Col>
-            <Col lg="4">
-              <Card className="card-box bg-midnight-bloom text-light mb-5">
-                <CardBody>
-                  <div className="d-flex align-items-start  my-3">
-                    <div className="font-weight-bold">
-                      <small className="text-white-50 d-block mb-1 text-uppercase">
-                        Total Students Given exam
-                      </small>
-                      <span className="font-size-xxl mt-1">
-                        {allData.totalFaculty}
-                      </span>
-                    </div>
-                    <div className="ml-auto">
-                      <div className="bg-white text-center text-primary d-50 rounded-circle">
-                        <FontAwesomeIcon
-                          icon={["fa", "user-friends"]}
-                          className="font-size-xl"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </CardBody>
-              </Card>
-            </Col>
+
             <Col lg="4">
               <Card className="card-box bg-plum-plate text-light mb-5">
                 <CardBody>
@@ -108,7 +81,7 @@ export default function LivePreviewExample() {
                         Total Scheduled exam
                       </small>
                       <span className="font-size-xxl mt-1">
-                        {allData.totalCourse}
+                        {allData.totalScheduleExam}
                       </span>
                     </div>
                     <div className="ml-auto">

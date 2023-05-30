@@ -159,7 +159,13 @@ class Student extends Controller
     {
         try {
 
-            $allGivenExamIds = DB::table("student_marks")->where('student_id', '=', $request->session()->get('user_id'))->select(['exam_id'])->get()->toArray();
+            $allGivenExamIds = DB::table("student_marks")
+                ->where('student_id', '=', $request
+                    ->session()
+                    ->get('user_id'))
+                ->select(['exam_id'])
+                ->get()
+                ->toArray();
 
             $condition = [];
 
@@ -171,9 +177,9 @@ class Student extends Controller
                 ->join("course", "exam.course_id", "=", "course.course_id")
                 ->join("subject", "exam.subject_id", "=", "subject.subject_id")
                 ->join("faculty", "exam.faculty_id", "=", "faculty.faculty_id")
-                ->join("student_marks", "student_marks.exam_id", "=", "exam.exam_id")
+                ->join("student_marks", "exam.exam_id", "=", "student_marks.exam_id")
                 ->where("course.course_id", "=", $request->session()->get("course_id"))
-                ->where("exam.exam_date", "=", date('Y-m-d'))
+                ->where("exam.exam_date", "<", date('Y-m-d'))
                 ->whereIn('exam.exam_id', $condition)
                 ->select(
                     [
@@ -197,7 +203,7 @@ class Student extends Controller
 
             return response()->json([
                 'body' => $all_question_data,
-                'msg' => "All Questions records",
+                'msg' => "All Exam Done Records",
                 'status' => 'success'
             ], 200);
         } catch (Exception $ex) {
