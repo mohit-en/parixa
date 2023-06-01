@@ -436,6 +436,7 @@ export default function QuestionsScreen() {
                               <option
                                 key={item.course_id}
                                 value={item.course_id}
+                                selected="selected"
                               >
                                 {item.course_name}
                               </option>

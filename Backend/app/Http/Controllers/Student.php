@@ -179,7 +179,7 @@ class Student extends Controller
                 ->join("faculty", "exam.faculty_id", "=", "faculty.faculty_id")
                 ->join("student_marks", "exam.exam_id", "=", "student_marks.exam_id")
                 ->where("course.course_id", "=", $request->session()->get("course_id"))
-                ->where("exam.exam_date", "<", date('Y-m-d'))
+                ->where("exam.exam_date", "<=", date('Y-m-d'))
                 ->whereIn('exam.exam_id', $condition)
                 ->select(
                     [

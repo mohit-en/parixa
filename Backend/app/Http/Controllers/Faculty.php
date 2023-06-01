@@ -270,9 +270,15 @@ class Faculty extends Controller
             // if admin user want all course's data
 
             // fetch all course data from course table in database
-            $all_course_data = DB::table("course")->select(['course_id', 'course_name'])->get();
+            $all_course_data = DB::table("course")
+                ->where("course_id", "=", $request->session()->get("course_id"))
+                ->select(['course_id', 'course_name'])
+                ->get();
 
-            $subjects = DB::table("subject")->select(["subject_id", "subject_name", "course_id"])->get();
+            $subjects = DB::table("subject")
+                ->where("course_id", "=", $request->session()->get("course_id"))
+                ->select(["subject_id", "subject_name", "course_id"])
+                ->get();
 
             // if we get specific course record then send response
             return response()->json([
