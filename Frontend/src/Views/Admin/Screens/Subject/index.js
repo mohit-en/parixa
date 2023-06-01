@@ -342,7 +342,7 @@ export default function SubjectScreen() {
                 {/*  */}
                 <Modal isOpen={modal} toggle={toggle} centered>
                   <ModalHeader toggle={toggle}>
-                    {isEdit ? "Edit Student" : "Add New Student"}
+                    {isEdit ? "Edit Subject" : "Add New Subject"}
                   </ModalHeader>
                   <ModalBody>
                     {/*  */}
