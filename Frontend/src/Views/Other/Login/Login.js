@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import { StatusAlertService } from "react-status-alert";
-
 import { useNavigate } from "react-router-dom";
 
 import "./style.css";
@@ -9,8 +8,6 @@ import "./style.css";
 export default function Login() {
   const [email, setEmail] = useState("admin@admin.com");
   const [password, setPassword] = useState("123456");
-
-  //
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -70,6 +67,10 @@ export default function Login() {
     }
   };
 
+  const handleRegistration = () => {
+    navigate("/register");
+  };
+
   return (
     <section className="vh-100">
       <div className="container-fluid h-custom">
@@ -118,13 +119,23 @@ export default function Login() {
               <div className="text-center text-lg-start mt-4 pt-2">
                 <button
                   type="button"
-                  className="btn btn-primary btn-lg"
+                  className="btn btn-primary btn-lg mr-2"
                   style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem" }}
                   onClick={() => {
                     handleSubmit();
                   }}
                 >
                   Login
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-success btn-lg"
+                  style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem" }}
+                  onClick={() => {
+                    handleRegistration();
+                  }}
+                >
+                  Register
                 </button>
               </div>
             </form>

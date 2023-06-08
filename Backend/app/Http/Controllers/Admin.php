@@ -37,7 +37,11 @@ class Admin extends Controller
             // if admin user want all student's data
             if ($id == 0) {
                 // fetch all student data from student table in database
-                $all_student_data = DB::table("student")->select()->get();
+                $all_student_data = DB::table("student")
+                    ->leftJoin('users', "users.id", "=", "student.login_user_id")
+                    ->select(["student.*"])
+                    ->where("users.flag", "=", 1)
+                    ->get();
 
                 // if we have record send student's record in body key
                 return response()->json([
@@ -230,7 +234,11 @@ class Admin extends Controller
         // if admin user want all faculty's data
         if ($id == 0) {
             // fetch all faculty data from faculty table in database
-            $all_faculty_data = DB::table("faculty")->select()->get();
+            $all_faculty_data = DB::table("faculty")
+                ->leftJoin('users', "users.id", "=", "faculty.login_user_id")
+                ->select(["faculty.*"])
+                ->where("users.flag", "=", 1)
+                ->get();
 
             // check that if we have not any record then
             if (!$all_faculty_data) {

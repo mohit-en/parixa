@@ -26,6 +26,7 @@ class Auth_User extends Controller
             $data = DB::table("users")->select()->where([
                 ['user_email', "=", $request->input('email')],
                 ['user_password', "=", md5($request->input('password'))],
+                ['flag', "=", 1]
             ])->first();
 
             // printf($data);
@@ -99,7 +100,6 @@ class Auth_User extends Controller
         ], 200);
     }
 
-
     public function isUserLogin(Request $request)
     {
         $isUserSessionCreated = $request->session()->has('is_user_login') || null;
@@ -124,6 +124,85 @@ class Auth_User extends Controller
                 'msg' => "Not Found",
                 'status' => 'Not Found'
             ], 404);
+        }
+    }
+    public function register(Request $request)
+    {
+        // Validation
+        $validator = Validator::make($request->all(), [
+            'user_email' => 'required|email',
+            'user_password' => "required|string|min:6",
+            'course_id' => "required|numeric|min:1",
+            'user_role' => "required|max:8",
+            'user_name' => "required|string",
+            'user_moblie_number' => "required",
+            'user_address' => "required"
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'body' => [],
+                'msg' => $validator->errors(),
+                'status' => 'fail'
+            ], 422);
+        }
+        try {
+            if ($request->input("user_role") == "student") {
+                DB::beginTransaction();
+                $userId = DB::table('users')->insertGetId([
+                    'user_email' => $request->input("user_email"),
+                    'user_password' => md5($request->input("user_password")),
+                    "user_role" => "student",
+                    "course_id" => $request->input("course_id")
+                ]);
+
+                // insert student record in student table
+                DB::table('student')->insert([
+                    "student_name" => $request->input("user_name"),
+                    "student_mobile" => $request->input("user_moblie_number"),
+                    "student_address" => $request->input("user_address"),
+                    "course_id" => $request->input("course_id"),
+                    "login_user_id" => $userId
+                ]);
+                DB::commit();
+                // send response
+                return response()->json([
+                    'body' => [],
+                    'msg' => "Your request send to the admin. when he allow then you can login.",
+                    'status' => 'Success'
+                ], 200);
+            } elseif ($request->input("user_role") == "faculty") {
+                DB::beginTransaction();
+                $userId = DB::table('users')->insertGetId([
+                    'user_email' => $request->input("user_email"),
+                    'user_password' => md5($request->input("user_password")),
+                    "user_role" => "faculty",
+                    "course_id" => $request->input("course_id")
+                ]);
+
+                // insert student record in student table
+                DB::table('faculty')->insert([
+                    "faculty_name" => $request->input("user_name"),
+                    "faculty_mobile" => $request->input("user_moblie_number"),
+                    "faculty_address" => $request->input("user_address"),
+                    "course_id" => $request->input("course_id"),
+                    "login_user_id" => $userId
+                ]);
+                DB::commit();
+                // send response
+                return response()->json([
+                    'body' => [],
+                    'msg' => "Your request send to the admin. when he allow then you can login.",
+                    'status' => 'Success'
+                ], 200);
+            }
+        } catch (Exception $ex) {
+            // DB::rollBack();
+            return response()->json([
+                'body' => [],
+                'msg' => $ex->getMessage(),
+                'status' => 'fail'
+            ], 400);
         }
     }
 }

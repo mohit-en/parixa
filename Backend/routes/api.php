@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Auth_User;
 use App\Http\Controllers\Faculty;
+use App\Http\Controllers\General;
 use App\Http\Controllers\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,10 +35,10 @@ Route::middleware('api-session')->group(
 
         Route::prefix('auth')->group(function () {
             Route::post('/login', [Auth_User::class, "login"]);
-            Route::post('/signup', [Auth_User::class, "signup"]);
             Route::post('/logout', [Auth_User::class, "logout"]);
             Route::post('/isUserLogin', [Auth_User::class, "isUserLogin"]);
             Route::post('/session', [Auth_User::class, "fetchSessionData"]);
+            Route::post('/register', [Auth_User::class, "register"]);
         });
 
         Route::prefix('admin')->middleware(['admin-auth'])->group(function () {
@@ -124,5 +125,7 @@ Route::middleware('api-session')->group(
                 Route::post('/add/', [Student::class, "addExamMarksData"]);
             });
         });
+
+        Route::post('course/fetch/', [General::class, "fetchCourseData"]);
     }
 );

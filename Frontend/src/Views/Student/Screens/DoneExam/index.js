@@ -20,6 +20,9 @@ import {
 import Axios, { formToJSON } from "axios";
 import ReactLoading from "react-spinners/CircleLoader";
 import { StatusAlertService } from "react-status-alert";
+import { Line } from "react-chartjs-2";
+import { Chart } from "chart.js/auto";
+import moment from "moment";
 
 // data table
 import "datatables.net-dt/js/dataTables.dataTables";
@@ -32,6 +35,7 @@ export default function DoneExamScreen() {
   const [scheduleList, setScheduleList] = useState([]);
   const [sessionData, setSessionData] = useState([]);
   const [timeCounting, setTimeCounting] = useState(0);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     $(document).ready(function () {
@@ -47,28 +51,10 @@ export default function DoneExamScreen() {
 
     return () => {};
   }, []);
-
-  const fetchingSessionData = async () => {
-    try {
-      // rest login api here
-      let headersList = {
-        Accept: "*/*",
-        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-      };
-      let reqOptions = {
-        url: "/api/auth/session",
-        method: "POST",
-        headers: headersList,
-      };
-
-      const { status, data } = await Axios.request(reqOptions);
-      setSessionData(data.body);
-    } catch (error) {
-      console.log("====================================");
-      console.log(error.response.data.msg);
-      console.log("====================================");
-    }
+  const toggle = () => {
+    setModal(!modal);
   };
+
   const fetchingData = async () => {
     try {
       // rest login api here
@@ -85,6 +71,7 @@ export default function DoneExamScreen() {
       const { status, data } = await Axios.request(reqOptions);
 
       setScheduleList(data.body);
+
       setIsLoading(false);
     } catch (error) {
       console.log("====================================");
@@ -92,7 +79,6 @@ export default function DoneExamScreen() {
       console.log("====================================");
     }
   };
-
   return (
     <Fragment>
       <Row>
@@ -106,7 +92,16 @@ export default function DoneExamScreen() {
               <div>
                 <div className="w-100 d-flex justify-content-between align-items-center my-2 text-dark">
                   <h4>Done Exam</h4>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                      setModal(true);
+                    }}
+                  >
+                    + See Growth
+                  </button>
                 </div>
+
                 <table
                   className="table table-bordered text-center"
                   id="dataTable"
@@ -144,6 +139,65 @@ export default function DoneExamScreen() {
                     })}
                   </tbody>
                 </table>
+                <Modal isOpen={modal} toggle={toggle} centered>
+                  <ModalHeader toggle={toggle}>
+                    {"Growth of student"}
+                  </ModalHeader>
+                  <ModalBody>
+                    {/*  */}
+                    <Form>
+                      <FormGroup>
+                        {scheduleList ? (
+                          <Line
+                            data={{
+                              labels: scheduleList.map(
+                                (label) =>
+                                  `${moment(label.exam_date).format(
+                                    "MMM DD"
+                                  )}(${label.questions_limit})`
+                              ),
+                              datasets: [
+                                {
+                                  label: "Marks 2023",
+                                  data: scheduleList.map(
+                                    (item) => item.marks_obtained
+                                  ),
+                                  fill: false,
+                                  backgroundColor: "#6C63FF",
+                                  borderColor: "#6C63FF",
+                                },
+                              ],
+                            }}
+                            options={{
+                              responsive: true,
+                              maintainAspectRatio: false,
+                              scales: {
+                                xAxes: [
+                                  {
+                                    ticks: {
+                                      autoSkip: true,
+                                      maxTicksLimit: 10,
+                                    },
+                                  },
+                                ],
+                              },
+                            }}
+                          />
+                        ) : (
+                          <div className="d-flex align-items-center justify-content-center">
+                            <ReactLoading type={"bars"} color="#6C63FF" />
+                          </div>
+                        )}
+                      </FormGroup>
+                    </Form>
+                    {/*  */}
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button color="secondary" onClick={toggle}>
+                      Cancel
+                    </Button>
+                  </ModalFooter>
+                </Modal>
               </div>
             )}
           </CardBody>

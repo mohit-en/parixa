@@ -20,3 +20,11 @@ student ->
 1) exam only
 2) result view
 3) notification
+
+ 
+
+Improvements given by jinal ma'ams
+
+registration for faculty and student and admin can approve that.
+
+student progress report grafic report.

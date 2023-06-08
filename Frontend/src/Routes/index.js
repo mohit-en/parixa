@@ -13,6 +13,7 @@ import LiveExamRoute from "../Views/Other/LiveExam";
 
 // import 404 page
 import Page404 from "../Views/Other/PageNotFound/PageNotFound";
+import Registration from "../Views/Other/Login/Registration";
 
 export default function IndexRoute() {
   return (
@@ -20,6 +21,7 @@ export default function IndexRoute() {
       <Routes>
         <Route path="/" element={<HomeRoute />}></Route>
         <Route path="/login" element={<LoginRoute />}></Route>
+        <Route path="/register" element={<Registration />}></Route>
 
         <Route path="/liveexam/:examId" element={<LiveExamRoute />}></Route>
 
