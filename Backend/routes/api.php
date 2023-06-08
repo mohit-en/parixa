@@ -72,6 +72,12 @@ Route::middleware('api-session')->group(
                 Route::patch("/update/{id}", [Admin::class, "updateSubjectData"]);
                 Route::delete("/delete/{id}", [Admin::class, "deleteSubjectData"]);
             });
+            Route::prefix('approval')->group(function () {
+                Route::post('/', [Admin::class, "fetchNonApprovedUsersData"]);
+                Route::patch('/add', [Admin::class, "giveApprovelToUser"]);
+                Route::post('/show', [Admin::class, "showUserInfo"]);
+                Route::delete('/delete/{id}', [Admin::class, "deleteUser"]);
+            });
         });
 
         Route::prefix('faculty')->middleware(['faculty-auth'])->group(function () {

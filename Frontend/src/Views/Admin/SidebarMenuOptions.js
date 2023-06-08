@@ -8,6 +8,7 @@ import Students from "./Screens/Students";
 import Faculty from "./Screens/Faculty";
 import Course from "./Screens/Course";
 import Subject from "./Screens/Subject";
+import PendingApproval from "./Screens/PendingApproval";
 // import Approval from "./Screens/Approval";
 // import Profile from "./Screens/Profile";
 
@@ -54,6 +55,16 @@ const AllRoutes = [
     to: "/admin/facultys",
     route: "/facultys",
     componet: <Faculty />,
+    isSideMenuComponent: true,
+  },
+  {
+    label: "Pending Request",
+    icon: () => (
+      <FontAwesomeIcon icon={["fa", "check-square"]} color={"white"} />
+    ),
+    to: "/admin/approval",
+    route: "/approval",
+    componet: <PendingApproval />,
     isSideMenuComponent: true,
   },
 ];

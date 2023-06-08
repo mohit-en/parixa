@@ -345,29 +345,35 @@ export default function FacultyScreen() {
                     </tr>
                   </thead>
                   <tbody>
-                    {facultyList.map((ls, i) => {
-                      return (
-                        <tr key={i}>
-                          <th>{i + 1}</th>
-                          <th>{ls.faculty_name}</th>
-                          <th>{ls.faculty_mobile}</th>
-                          <th>
-                            <span
-                              className="btn btn-info rounded-circle mr-2"
-                              onClick={() => editFaculty(ls.faculty_id)}
-                            >
-                              <FontAwesomeIcon icon={"edit"} color="#fff" />
-                            </span>
-                            <span
-                              className="btn btn-danger rounded-circle"
-                              onClick={() => removeFaculty(ls.faculty_id)}
-                            >
-                              <FontAwesomeIcon icon={"trash"} color="#fff" />
-                            </span>
-                          </th>
-                        </tr>
-                      );
-                    })}
+                    {facultyList
+                      .filter((studentObj) => {
+                        if (studentObj.flag == 1) {
+                          return studentObj;
+                        }
+                      })
+                      .map((ls, i) => {
+                        return (
+                          <tr key={i}>
+                            <th>{i + 1}</th>
+                            <th>{ls.faculty_name}</th>
+                            <th>{ls.faculty_mobile}</th>
+                            <th>
+                              <span
+                                className="btn btn-info rounded-circle mr-2"
+                                onClick={() => editFaculty(ls.faculty_id)}
+                              >
+                                <FontAwesomeIcon icon={"edit"} color="#fff" />
+                              </span>
+                              <span
+                                className="btn btn-danger rounded-circle"
+                                onClick={() => removeFaculty(ls.faculty_id)}
+                              >
+                                <FontAwesomeIcon icon={"trash"} color="#fff" />
+                              </span>
+                            </th>
+                          </tr>
+                        );
+                      })}
                   </tbody>
                 </table>
 

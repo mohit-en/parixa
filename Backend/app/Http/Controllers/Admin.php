@@ -39,8 +39,7 @@ class Admin extends Controller
                 // fetch all student data from student table in database
                 $all_student_data = DB::table("student")
                     ->leftJoin('users', "users.id", "=", "student.login_user_id")
-                    ->select(["student.*"])
-                    ->where("users.flag", "=", 1)
+                    ->select(["student.*", "users.flag"])
                     ->get();
 
                 // if we have record send student's record in body key
@@ -236,8 +235,7 @@ class Admin extends Controller
             // fetch all faculty data from faculty table in database
             $all_faculty_data = DB::table("faculty")
                 ->leftJoin('users', "users.id", "=", "faculty.login_user_id")
-                ->select(["faculty.*"])
-                ->where("users.flag", "=", 1)
+                ->select(["faculty.*", "users.flag"])
                 ->get();
 
             // check that if we have not any record then
@@ -753,6 +751,154 @@ class Admin extends Controller
                 return response()->json([
                     'body' => [],
                     'msg' => "Requested subject data is not exist",
+                    'status' => 'does\'t exist'
+                ], 200);
+            }
+        } catch (Exception $ex) {
+            return response()->json([
+                'body' => [],
+                'msg' => $ex->getMessage(),
+                'status' => 'fail'
+            ], 400);
+        }
+    }
+
+    // this function is for fetch not approval users data
+    public function fetchNonApprovedUsersData(Request $request)
+    {
+        try {
+            // fetch specific subject data based on id
+            $users = DB::table("users")
+                ->leftJoin("course", "users.course_id", "=", "course.course_id")
+                ->select(["users.*", "course.course_name"])
+                ->where("flag", "=", 2)
+                ->get();
+
+            // if we have no record of that specific subject then ...
+            if (!$users) {
+                return response()->json([
+                    'body' => [],
+                    'msg' => "Not found any pending request",
+                    'status' => 'Not found'
+                ], 404);
+            }
+            // if we get specific subject record then send response
+            return response()->json([
+                'body' => $users,
+                'msg' => "Non approved users",
+                'status' => 'success'
+            ], 200);
+        } catch (Exception $ex) {
+            return response()->json([
+                'body' => [],
+                'msg' => $ex->getMessage(),
+                'status' => 'fail'
+            ], 400);
+        }
+    }
+    // this funciton give access rights for login
+    public function giveApprovelToUser(Request $request)
+    {
+        // Validation on data
+        $data_validation = validator::make($request->all(), [
+            "id" => "required|numeric",
+        ]);
+
+        if ($data_validation->fails()) {
+            return response()->json([
+                'body' => [],
+                'msg' => $data_validation->errors(),
+                'status' => 'fail'
+            ], 400);
+        }
+        // if data is valid then update
+        try {
+            $data = DB::table("users")
+                ->where("id", "=", $request->input("id"))
+                ->update(['flag' => 1]);
+            if ($data) {
+                return response()->json([
+                    'body' => [],
+                    'msg' => "Now user can login",
+                    'status' => 'Updated'
+                ], 200);
+            }
+            return response()->json([
+                'body' => [],
+                'msg' => "Not Updated",
+                'status' => 'Not Updated'
+            ], 400);
+        } catch (Exception $ex) {
+            return response()->json([
+                'body' => [],
+                'msg' => $ex->getMessage(),
+                'status' => 'fail'
+            ], 400);
+        }
+    }
+
+    // this function is for show user Information
+    public function showUserInfo(Request $request)
+    {
+        // Validation on data
+        $data_validation = validator::make($request->all(), [
+            "id" => "required|numeric",
+            "user_role" => "required|string|in:student,faculty"
+        ]);
+
+        if ($data_validation->fails()) {
+            return response()->json([
+                'body' => $request->all(),
+                'msg' => $data_validation->errors(),
+                'status' => 'fail'
+            ], 400);
+        }
+        // if data is valid then update
+        try {
+            $data = DB::table($request->input("user_role"))
+                ->where("login_user_id", "=", $request->input("id"))
+                ->select()
+                ->first();
+            if ($data) {
+                return response()->json([
+                    'body' => $data,
+                    'msg' => "Get user data successfully",
+                    'status' => 'success'
+                ], 200);
+            }
+            return response()->json([
+                'body' => [],
+                'msg' => "Something went wrong",
+                'status' => 'not found'
+            ], 400);
+        } catch (Exception $ex) {
+            return response()->json([
+                'body' => [],
+                'msg' => $ex->getMessage(),
+                'status' => 'fail'
+            ], 400);
+        }
+    }
+
+    public function deleteUser(Request $request, $id)
+    {
+        try {
+            if (is_numeric($id) && $id > 0) {
+
+                $deleteFromUsersTable = DB::table("users")
+                    ->where("id", "=", $id)->delete();
+
+                if ($deleteFromUsersTable == 1) {
+                    return response()->json([
+                        'body' => [$deleteFromUsersTable],
+                        'msg' => 'User Deleted Succesfully',
+                        'status' => 'Success delete'
+                    ], 200);
+                }
+
+                return response()->json([
+                    'body' => [],
+                    'msg' => "Requested student data is not exist",
                     'status' => 'does\'t exist'
                 ], 200);
             }
