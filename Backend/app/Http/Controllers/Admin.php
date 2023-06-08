@@ -105,6 +105,7 @@ class Admin extends Controller
             $userId = DB::table('users')->insertGetId([
                 'user_email' => $request->input("email"),
                 'user_password' => md5($request->input("password")),
+                "course_id" => $request->input("course_id"),
                 "user_role" => "student",
                 "flag" => 1
             ]);
@@ -156,6 +157,8 @@ class Admin extends Controller
         }
         // if data is valid then update
         try {
+            DB::beginTransaction();
+
             $data = DB::table("student")
                 ->where("student_id", "=", $id)
                 ->update($request->all([
@@ -165,6 +168,18 @@ class Admin extends Controller
                     "student_img",
                     "course_id"
                 ]));
+            DB::table("users")
+                ->where(
+                    "id",
+                    "=",
+                    DB::table("student")
+                        ->where("student_id", "=", $id)
+                        ->value('login_user_id')
+                )
+                ->update($request->all([
+                    "course_id"
+                ]));
+            DB::commit();
             if ($data) {
                 return response()->json([
                     'body' => [],
@@ -317,7 +332,9 @@ class Admin extends Controller
             $userId = DB::table('users')->insertGetId([
                 "user_email" => $request->input("email"),
                 "user_password" => md5($request->input("password")),
-                "user_role" => "faculty"
+                "course_id" => $request->input("course_id"),
+                "user_role" => "faculty",
+                "flag" => 1
             ]);
 
             // insert faculty record in faculty table
@@ -366,7 +383,7 @@ class Admin extends Controller
         }
         // if data is valid then update
         try {
-
+            DB::beginTransaction();
             // print_r($request->except("faculty_id"));
             $data = DB::table("faculty")
                 ->where("faculty_id", "=", $id)
@@ -376,7 +393,18 @@ class Admin extends Controller
                     "faculty_address",
                     "course_id"
                 ]));
-
+            DB::table("users")
+                ->where(
+                    "id",
+                    "=",
+                    DB::table("faculty")
+                        ->where("faculty_id", "=", $id)
+                        ->value('login_user_id')
+                )
+                ->update($request->all([
+                    "course_id"
+                ]));
+            DB::commit();
             if ($data) {
                 return response()->json([
                     'body' => [],
