@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Row,
@@ -32,7 +32,34 @@ export default function ScheduleExamScreen() {
   const [isLoading, setIsLoading] = useState(true);
   const [scheduleList, setScheduleList] = useState([]);
   const [sessionData, setSessionData] = useState([]);
-  const [timeCounting, setTimeCounting] = useState(0);
+  // const [timeCounting, setTimeCounting] = useState(0);
+  const [currentTime, setCurrentTime] = useState("");
+  const [remainingTime, setRemainingTime] = useState(0);
+  const [isExamEnded, setIsExamEnded] = useState(false);
+
+  const useInterval = (callback, delay) => {
+    const savedCallback = useRef();
+
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+
+    useEffect(() => {
+      const tick = () => {
+        savedCallback.current();
+      };
+
+      if (delay !== null) {
+        const intervalId = setInterval(tick, delay);
+        return () => clearInterval(intervalId);
+      }
+    }, [delay]);
+  };
+  useInterval(() => {
+    const now = new Date();
+    const formattedTime = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+    setCurrentTime(formattedTime);
+  }, 1000);
 
   useEffect(() => {
     $(document).ready(function () {
@@ -47,7 +74,7 @@ export default function ScheduleExamScreen() {
     // fetchingSessionData();
 
     return () => {};
-  }, []);
+  }, [currentTime]);
 
   const fetchingSessionData = async () => {
     try {
@@ -126,6 +153,28 @@ export default function ScheduleExamScreen() {
                   </thead>
                   <tbody>
                     {scheduleList.map((ls, i) => {
+                      const examStartTime = `${ls.exam_date} ${ls.start_time}`;
+                      const examEndTime = `${ls.exam_date} ${ls.end_time}`;
+
+                      const remainingSeconds = Math.floor(
+                        (new Date(examStartTime) - new Date()) / 1000
+                      );
+                      const isExamEnded = new Date() > new Date(examEndTime);
+
+                      const hours = Math.floor(remainingSeconds / 3600);
+                      const minutes = Math.floor(
+                        (remainingSeconds % 3600) / 60
+                      );
+                      const seconds = remainingSeconds % 60;
+
+                      const formattedTime = `${hours
+                        .toString()
+                        .padStart(2, "0")}:${minutes
+                        .toString()
+                        .padStart(2, "0")}:${seconds
+                        .toString()
+                        .padStart(2, "0")}`;
+
                       return (
                         <tr key={i}>
                           <th>{i + 1}</th>
@@ -136,14 +185,23 @@ export default function ScheduleExamScreen() {
                           </th>
                           <th>{ls.faculty_name}</th>
                           <th>
-                            {/* <button className="btn btn-primary">Join</button> */}
-                            <Link
-                              className="btn btn-primary"
-                              to={`/liveexam/${ls.exam_id}`}
-                              target="_blank"
-                            >
-                              Join
-                            </Link>
+                            {currentTime >= ls.start_time &&
+                            currentTime <= ls.end_time ? (
+                              <Link
+                                className={`btn btn-primary ${
+                                  isExamEnded ? "disabled" : ""
+                                }`}
+                                to={`/liveexam/${ls.exam_id}`}
+                                target="_blank"
+                                disabled={isExamEnded}
+                              >
+                                Join
+                              </Link>
+                            ) : currentTime > ls.end_time ? (
+                              ""
+                            ) : (
+                              <span>{formattedTime} remaining</span>
+                            )}
                           </th>
                         </tr>
                       );
